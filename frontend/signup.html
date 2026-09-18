@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Create Account | SignVerse</title>
+    <style>
+        /*COLOR PALETTE*/
+        :root {
+            --dark-teal: #23484E;
+            --blue-teal: #386875;
+            --teal: #4AA5AA;
+            --orange: #FFA000;
+            --orange-hover: #FFB52E;
+            --cream: #F5F2E8;
+            --light-text: #D5DFDD;
+            --muted-text: #A8B9B8;
+            --border: rgba(245, 242, 232, 0.18);
+            --card-bg: rgba(56, 104, 117, 0.28);
+        }
+        /*GLOBAL STYLES*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: var(--dark-teal);
+            color: var(--cream);
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        a {
+            text-decoration: none;
+        }
+        /*NAVIGATION BAR*/
+        .navbar {
+            width: 100%;
+            height: 86px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            background-color: var(--dark-teal);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            z-index: 10;
+        }
+        /*LOGO*/
+        .logo {
+            color: var(--cream);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: -1px;
+        }
+        /*NAVIGATION LINKS*/
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 42px;
+        }
+        .nav-links a {
+            color: var(--light-text);
+            font-size: 15px;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: var(--orange);
+        }
+        /*RIGHT SIDE BUTTONS*/
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        .login-link {
+            color: var(--cream);
+            font-size: 15px;
+            transition: color 0.3s ease;
+        }
+        .login-link:hover {
+            color: var(--orange);
+        }
+        .signup-button {
+            background-color: var(--orange);
+            color: var(--dark-teal);
+            padding: 13px 24px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: bold;
+            transition:
+                transform 0.3s ease,
+                background-color 0.3s ease;
+        }
+        .signup-button:hover {
+            background-color: var(--orange-hover);
+            transform: translateY(-2px);
+        }
+        .create-button {
+            background-color: #ff9f00;
+            color: #1c353a;
+            padding: 12px 22px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .create-button:hover {
+            background-color: #ffb52e;
+            transform: translateY(-2px);
+        }
+        /*SIGNUP PAGE*/
+        .signup-page {
+            min-height: calc(100vh - 86px);
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            padding: 70px 5%;
+            background-color: var(--dark-teal);
+        }
+        /*LEFT SIDE*/
+        .signup-intro {
+            width: 48%;
+            padding-left: 10px;
+        }
+        .intro-small {
+            color: var(--teal);
+            font-size: 13px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+        }
+        .signup-intro h1 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(55px, 6vw, 78px);
+            line-height: 0.98;
+            letter-spacing: -3px;
+            margin-bottom: 30px;
+        }
+        .signup-intro h1 span {
+            color: var(--orange);
+        }
+        .intro-description {
+            color: var(--light-text);
+            font-size: 17px;
+            line-height: 1.7;
+            max-width: 520px;
+            margin-bottom: 35px;
+        }
+        /*INTRO POINTS*/
+        .intro-points {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .intro-point {
+            display: flex;
+            align-items: center;
+            color: var(--muted-text);
+            font-size: 14px;
+        }
+        .intro-point span {
+            color: var(--orange);
+            font-size: 17px;
+            margin-right: 12px;
+        }
+        /*SIGNUP CARD*/
+        .auth-card {
+            width: 52%;
+            max-width: 560px;
+            padding: 38px;
+            background-color: rgba(56, 104, 117, 0.25);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+        }
+        /*CARD HEADING*/
+        .card-heading {
+            margin-bottom: 30px;
+        }
+        .card-heading h2 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 32px;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+        .card-heading p {
+            color: var(--muted-text);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        /*FORM*/
+        .form-group {
+            margin-bottom: 17px;
+        }
+        .form-group label {
+            display: block;
+            color: var(--light-text);
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            background-color: rgba(35, 72, 78, 0.75);
+            color: var(--cream);
+            border: 1px solid rgba(245, 242, 232, 0.20);
+            border-radius: 12px;
+            outline: none;
+            font-size: 14px;
+            transition:
+                border-color 0.3s ease,
+                background-color 0.3s ease;
+        }
+        .form-group input:focus {
+            border-color: var(--teal);
+            background-color: rgba(35, 72, 78, 0.95);
+        }
+        .form-group input::placeholder {
+            color: rgba(213, 223, 221, 0.45);
+        }
+        /*INPUT ERROR*/
+        .form-group input.input-error {
+            border-color: #ff6b6b;
+        }
+        .form-group input.input-error:focus {
+            border-color: #ff6b6b;
+        }
+        /*FIELD ERROR MESSAGE*/
+        .field-error {
+            display: block;
+            min-height: 16px;
+            margin-top: 5px;
+            color: #ff8b8b;
+            font-size: 11px;
+        }
+        /*GENERAL MESSAGE*/
+        #signup-message {
+            display: none;
+            margin-bottom: 17px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        #signup-message.error {
+            display: block;
+            color: #ff9b9b;
+            background-color: rgba(255, 80, 80, 0.08);
+            border: 1px solid rgba(255, 80, 80, 0.25);
+        }
+        #signup-message.success {
+            display: block;
+            color: #9ee5b0;
+            background-color: rgba(80, 255, 100, 0.08);
+            border: 1px solid rgba(80, 255, 100, 0.25);
+        }
+        /*SUBMIT BUTTON*/
+        .auth-button {
+            width: 100%;
+            margin-top: 5px;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            background-color: var(--orange);
+            color: var(--dark-teal);
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition:
+                transform 0.3s ease,
+                background-color 0.3s ease;
+        }
+        .auth-button span {
+            margin-left: 8px;
+        }
+        .auth-button:hover {
+            background-color: var(--orange-hover);
+            transform: translateY(-2px);
+        }
+        .auth-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        /*LOGIN LINK*/
+        .auth-switch {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--muted-text);
+            font-size: 13px;
+        }
+        .auth-switch a {
+            color: var(--orange);
+            text-decoration: none;
+        }
+        .auth-switch a:hover {
+            text-decoration: underline;
+        }
+        /*RESPONSIVE DESIGN*/
+        @media (max-width: 1000px) {
+            .signup-page {
+                gap: 45px;
+            }
+            .signup-intro h1 {
+                font-size: 60px;
+            }
+            .auth-card {
+                padding: 32px;
+            }
+        }
+        /*TABLET*/
+        @media (max-width: 800px) {
+            /*NAVBAR*/
+            .navbar {
+                height: 75px;
+                padding: 0 6%;
+            }
+            .logo {
+                font-size: 27px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .nav-buttons {
+                gap: 15px;
+            }
+            .login-link {
+                font-size: 14px;
+            }
+            .signup-button {
+                padding: 11px 18px;
+                font-size: 14px;
+            }
+            /*SIGNUP PAGE*/
+            .signup-page {
+                flex-direction: column;
+                align-items: stretch;
+                min-height: auto;
+                padding: 60px 6% 80px;
+            }
+            .signup-intro {
+                width: 100%;
+                padding-left: 0;
+                text-align: center;
+            }
+            .signup-intro h1 {
+                font-size: clamp(48px, 10vw, 68px);
+            }
+            .intro-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .intro-points {
+                align-items: center;
+            }
+            .auth-card {
+                width: 100%;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+        /*MOBILE*/
+        @media (max-width: 500px) {
+            .navbar {
+                padding: 0 5%;
+            }
+            .logo {
+                font-size: 25px;
+            }
+            .signup-button {
+                padding: 10px 15px;
+            }
+            .signup-page {
+                padding: 50px 5% 70px;
+            }
+            .intro-small {
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+            .signup-intro h1 {
+                font-size: 45px;
+                letter-spacing: -2px;
+            }
+            .intro-description {
+                font-size: 15px;
+            }
+            .auth-card {
+                padding: 28px 22px;
+                border-radius: 22px;
+            }
+            .card-heading h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!--NAVIGATION BAR-->
+    <header class="navbar">
+
+        <a
+            href="index.html"
+            class="logo"
+        >
+            SignVerse
+        </a>
+
+        <nav class="nav-links">
+            <a href="index.html">
+                Home
+            </a>
+            <a href="dashboard.html">
+                Learn
+            </a>
+            <a href="#">
+                Progress
+            </a>
+        </nav>
+
+        <div class="nav-buttons">
+            <a
+                href="login.html"
+                class="login-link"
+            >
+                Sign In
+            </a>
+            <a
+                href="signup.html"
+                class="create-button"
+            >
+                Create Account
+            </a>
+        </div>
+    </header>
+    <!-- SIGNUP PAGE-->
+    <main class="signup-page">
+        <!-- LEFT INTRODUCTION-->
+        <section class="signup-intro">
+            <p class="intro-small">
+                Start your journey
+            </p>
+            <h1>
+                Create your
+                <br>
+                <span>
+                    account.
+                </span>
+            </h1>
+            <p class="intro-description">
+                Join SignVerse and begin learning
+                Indian Sign Language through visual
+                lessons, practice and progress.
+            </p>
+        </section>
+
+        <!--SIGNUP FORM CARD-->
+        <section class="auth-card">
+            <!-- CARD HEADING -->
+            <div class="card-heading">
+                <h2>
+                    Create your account
+                </h2>
+                <p>
+                    Fill in your details to get started.
+                </p>
+            </div>
+            <!--SIGNUP FORM-->
+            <form id="signup-form">
+                <!-- NAME -->
+                <div class="form-group">
+                    <label for="signup-name">
+                        Name
+                    </label>
+                    <input
+                        type="text"
+                        id="signup-name"
+                        placeholder="Enter your name"
+                        autocomplete="name"
+                    >
+                    <small
+                        class="field-error"
+                        id="name-error">
+                    </small>
+                </div>
+                <!-- EMAIL -->
+                <div class="form-group">
+                    <label for="signup-email">
+                        Email
+                    </label>
+                    <input
+                        type="email"
+                        id="signup-email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                    >
+                    <small
+                        class="field-error"
+                        id="email-error">
+                    </small>
+                </div>
+                <!-- PASSWORD -->
+                <div class="form-group">
+                    <label for="signup-password">
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        id="signup-password"
+                        placeholder="Create a password"
+                        autocomplete="new-password"
+                    >
+                    <small
+                        class="field-error"
+                        id="password-error">
+                    </small>
+                </div>
+                <!-- CONFIRM PASSWORD -->
+                <div class="form-group">
+                    <label for="signup-confirm-password">
+                        Confirm Password
+                    </label>
+                    <input
+                        type="password"
+                        id="signup-confirm-password"
+                        placeholder="Re-enter your password"
+                        autocomplete="new-password"
+                    >
+                    <small
+                        class="field-error"
+                        id="confirm-password-error">
+                    </small>
+                </div>
+                <!-- PHONE NUMBER -->
+                <div class="form-group">
+                    <label for="signup-phone">
+                        Phone Number
+                    </label>
+                    <input
+                        type="tel"
+                        id="signup-phone"
+                        placeholder="Enter your 10-digit phone number"
+                        inputmode="numeric"
+                        autocomplete="tel"
+                    >
+                    <small
+                        class="field-error"
+                        id="phone-error">
+                    </small>
+                </div>
+                <!-- AGE -->
+                <div class="form-group">
+                    <label for="signup-age">
+                        Age
+                    </label>
+                    <input
+                        type="number"
+                        id="signup-age"
+                        placeholder="Enter your age"
+                        min="1"
+                        max="120"
+                    >
+                    <small
+                        class="field-error"
+                        id="age-error">
+                    </small>
+                </div>
+                <!-- MESSAGE -->
+                <div id="signup-message"></div>
+                <!-- SUBMIT BUTTON -->
+                <button
+                    type="submit"
+                    class="auth-button"
+                    id="signup-button"
+                >
+                    Create Account
+                    <span>↗</span>
+                </button>
+            </form>
+            <!-- LOGIN -->
+            <p class="auth-switch">
+                Already have an account?
+                <a href="login.html">
+                    Sign in
+                </a>
+            </p>
+        </section>
+    </main>
+
+    <!-- JAVASCRIPT-->
+    <script>
+        // SIGNVERSE - SIGNUP
+        const signupForm =
+            document.getElementById("signup-form");
+        const signupButton =
+            document.getElementById("signup-button");
+        const signupMessage =
+            document.getElementById("signup-message");
+
+        // FORM SUBMISSION
+        signupForm.addEventListener(
+            "submit",
+            async function (event) {
+                // Stop normal browser form submission
+                event.preventDefault();
+
+                // GET VALUES
+                const name =
+                    document
+                        .getElementById("signup-name")
+                        .value
+                        .trim();
+                const email =
+                    document
+                        .getElementById("signup-email")
+                        .value
+                        .trim();
+                const password =
+                    document
+                        .getElementById("signup-password")
+                        .value;
+                const confirmPassword =
+                    document
+                        .getElementById("signup-confirm-password")
+                        .value;
+                const phone =
+                    document
+                        .getElementById("signup-phone")
+                        .value
+                        .trim();
+                const age =
+                    document
+                        .getElementById("signup-age")
+                        .value
+                        .trim();
+
+                // GET ERROR ELEMENTS
+                const nameError =
+                    document.getElementById("name-error");
+                const emailError =
+                    document.getElementById("email-error");
+                const passwordError =
+                    document.getElementById("password-error");
+                const confirmPasswordError =
+                    document.getElementById(
+                        "confirm-password-error"
+                    );
+                const phoneError =
+                    document.getElementById("phone-error");
+                const ageError =
+                    document.getElementById("age-error");
+
+                // GET INPUT ELEMENTS
+                const nameInput =
+                    document.getElementById("signup-name");
+                const emailInput =
+                    document.getElementById("signup-email");
+                const passwordInput =
+                    document.getElementById("signup-password");
+                const confirmPasswordInput =
+                    document.getElementById(
+                        "signup-confirm-password"
+                    );
+                const phoneInput =
+                    document.getElementById("signup-phone");
+                const ageInput =
+                    document.getElementById("signup-age");
+
+                // CLEAR PREVIOUS ERRORS
+                nameError.textContent = "";
+                emailError.textContent = "";
+                passwordError.textContent = "";
+                confirmPasswordError.textContent = "";
+                phoneError.textContent = "";
+                ageError.textContent = "";
+                nameInput.classList.remove("input-error");
+                emailInput.classList.remove("input-error");
+                passwordInput.classList.remove("input-error");
+                confirmPasswordInput.classList.remove(
+                    "input-error"
+                );
+                phoneInput.classList.remove("input-error");
+                ageInput.classList.remove("input-error");
+                signupMessage.textContent = "";
+                signupMessage.className = "";
+                let hasError = false;
+
+                // NAME VALIDATION
+                if (name === "") {
+                    nameError.textContent =
+                        "Name is required.";
+                    nameInput.classList.add(
+                        "input-error"
+                    );
+                    hasError = true;
+                }
+                else if (name.length < 2) {
+                    nameError.textContent =
+                        "Name must contain at least 2 characters.";
+                    nameInput.classList.add(
+                        "input-error"
+                    );
+                    hasError = true;
+                }
+
+                // EMAIL VALIDATION
+                if (email === "") {
+                    emailError.textContent =
+                        "Email is required.";
+                    emailInput.classList.add(
+                        "input-error"
+                    );
+                    hasError = true;
+                }
+                else {
+                    const emailPattern =
+                        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(email)) {
+                        emailError.textContent =
+                            "Please enter a valid email address.";
+                        emailInput.classList.add(
+                            "input-error"
+                        );
+                        hasError = true;
+                    }
+                }
+
+                // PASSWORD VALIDATION
+                if (password === "") {
+                    passwordError.textContent =
+                        "Password is required.";
+                    passwordInput.classList.add(
+                        "input-error"
+                    );
+                    hasError = true;
+                }
+                else if (password.length < 6) {
+                    passwordError.textContent =
+                        "Password must be at least 6 characters long.";
+                    passwordInput.classList.add(
+                        "input-error"
+                    );
+                    hasError = true;
+                }
+
+                // CONFIRM PASSWORD VALIDATION
+                if (confirmPassword === "") {
+                    confirmPasswordError.textContent =
+                        "Please confirm your password.";
+                    confirmPasswordInput.classList.add(
+                        "input-error"
+                    );
+                    hasError = true;
+                }
+                else if (password !== confirmPassword) {
+                    confirmPasswordError.textContent =
+                        "Passwords do not match.";
+                    confirmPasswordInput.classList.add(
+                        "input-error"
+                    );
+                    hasError = true;
+                }
+
+                // PHONE VALIDATION
+                if (phone === "") {
+                    phoneError.textContent =
+                        "Phone number is required.";
+                    phoneInput.classList.add(
+                        "input-error"
+                    );
+                    hasError = true;
+                }
+                else {
+                    const phonePattern =
+                        /^[0-9]{10}$/;
+                    if (!phonePattern.test(phone)) {
+                        phoneError.textContent =
+                            "Phone number must contain exactly 10 digits.";
+                        phoneInput.classList.add(
+                            "input-error"
+                        );
+                        hasError = true;
+                    }
+                }
+
+                // AGE VALIDATION
+                if (age === "") {
+                    ageError.textContent =
+                        "Age is required.";
+                    ageInput.classList.add(
+                        "input-error"
+                    );
+                    hasError = true;
+                }
+                else {
+                    const ageNumber =
+                        Number(age);
+                    if (
+                        !Number.isInteger(ageNumber) ||
+                        ageNumber < 1 ||
+                        ageNumber > 120
+                    ) {
+                        ageError.textContent =
+                            "Age must be between 1 and 120.";
+                        ageInput.classList.add(
+                            "input-error"
+                        );
+                        hasError = true;
+                    }
+                }
+
+                // STOP IF VALIDATION FAILED
+                if (hasError) {
+                    signupMessage.textContent =
+                        "Please correct the errors above.";
+                    signupMessage.className =
+                        "error";
+                    return;
+                }
+
+                // DISABLE BUTTON
+                signupButton.disabled = true;
+                signupButton.innerHTML =
+                    "Creating Account...";
+
+                // SEND DATA TO FASTAPI
+                try {
+                    const response = await fetch(
+                        "http://127.0.0.1:8000/signup",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+                            body: JSON.stringify({
+                                name: name,
+                                email: email,
+                                password: password,
+                                phone: phone,
+                                age: Number(age)
+                            })
+                        }
+                    );
+
+                    // READ BACKEND RESPONSE
+                    const data =
+                        await response.json();
+
+                    // BACKEND ERROR
+                    if (!response.ok) {
+                        signupMessage.textContent =
+                            data.detail ||
+                            "Unable to create account.";
+                        signupMessage.className =
+                            "error";
+                        signupButton.disabled =
+                            false;
+                        signupButton.innerHTML =
+                            'Create Account <span>↗</span>';
+                        return;
+                    }
+
+                    // SUCCESS
+                    signupMessage.textContent =
+                        "Account created successfully! Redirecting to login...";
+                    signupMessage.className =
+                        "success";
+                    signupButton.disabled =
+                        true;
+
+                    // REDIRECT TO LOGIN
+                    setTimeout(function () {
+                        window.location.href =
+                            "login.html";
+                    }, 1500);
+                }
+
+                // SERVER CONNECTION ERROR
+                catch (error) {
+                    console.error(
+                        "Signup error:",
+                        error
+                    );
+                    signupMessage.textContent =
+                        "Unable to connect to the SignVerse server. Please make sure the backend is running.";
+                    signupMessage.className =
+                        "error";
+                    signupButton.disabled =
+                        false;
+                    signupButton.innerHTML =
+                        'Create Account <span>↗</span>';
+                }
+            }
+        );
+    </script>
+    
+</body>
+</html>
