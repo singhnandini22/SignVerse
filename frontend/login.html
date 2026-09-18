@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Sign In | SignVerse</title>
+    <style>
+        /*GLOBAL STYLES*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #21444a;
+            color: #f5f1e8;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+        /*HEADER*/
+        .navbar {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            background-color: #21444a;
+            border-bottom: 1px solid #3c6268;
+        }
+        /*LOGO*/
+        .logo {
+            color: #f5f1e8;
+            font-family: Georgia, serif;
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        /*NAVIGATION LINKS*/
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+        .nav-links a {
+            color: #c9d8d8;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+        /*RIGHT SIDE BUTTONS*/
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        .login-link {
+            color: #f5f1e8;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .create-button {
+            background-color: #ff9f00;
+            color: #1c353a;
+            padding: 12px 22px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .create-button:hover {
+            background-color: #ffb52e;
+            transform: translateY(-2px);
+        }
+        /*LOGIN PAGE*/
+        .auth-page {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 6%;
+        }
+        /*LOGIN CONTAINER*/
+        .auth-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 80px;
+        }
+        /*LEFT CONTENT*/
+        .auth-intro {
+            width: 50%;
+            padding-right: 30px;
+        }
+        .auth-small-text {
+            color: #8fd4d2;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+        .auth-intro h1 {
+            font-family: Georgia, serif;
+            font-size: clamp(50px, 5vw, 72px);
+            line-height: 0.98;
+            letter-spacing: -2px;
+            margin-bottom: 25px;
+            color: #f5f1e8;
+        }
+        .auth-intro h1 span {
+            color: #ff9f00;
+        }
+        .auth-description {
+            color: #c0cece;
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 500px;
+        }
+        /*LOGIN CARD*/
+        .auth-card {
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            background-color: #2d5960;
+            border: 1px solid #4b7479;
+            border-radius: 22px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        /*FORM*/
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            color: #dce8e7;
+            font-size: 12px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 15px 16px;
+            background-color: #21444a;
+            color: #f5f1e8;
+            border: 1px solid #5a7f84;
+            border-radius: 25px;
+            outline: none;
+            font-size: 14px;
+            transition:
+                border-color 0.3s ease,
+                background-color 0.3s ease;
+        }
+        .form-group input:focus {
+            border-color: #8fd4d2;
+            background-color: #1d3e43;
+        }
+        .form-group input::placeholder {
+            color: #8fa8aa;
+        }
+        /*FIELD ERROR*/
+        .field-error {
+            display: block;
+            color: #ffb4a3;
+            font-size: 12px;
+            margin-top: 7px;
+            min-height: 15px;
+        }
+        .input-error {
+            border-color: #ff7043 !important;
+        }
+        /*GENERAL LOGIN MESSAGE*/
+        #login-message {
+            display: none;
+            padding: 12px 14px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        #login-message.error {
+            display: block;
+            color: #ffd0c5;
+            background-color: rgba(255, 112, 67, 0.12);
+            border: 1px solid rgba(255, 112, 67, 0.35);
+        }
+        #login-message.success {
+            display: block;
+            color: #c5efdf;
+            background-color: rgba(70, 163, 167, 0.12);
+            border: 1px solid rgba(70, 163, 167, 0.35);
+        }
+        /*LOGIN BUTTON*/
+        .auth-button {
+            width: 100%;
+            margin-top: 5px;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            background-color: #ff9f00;
+            color: #1c353a;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .auth-button span {
+            margin-left: 8px;
+        }
+        .auth-button:hover {
+            background-color: #ffb52e;
+            transform: translateY(-2px);
+        }
+        .auth-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        /*SIGNUP LINK*/
+        .auth-switch {
+            text-align: center;
+            margin-top: 22px;
+            color: #b6c7c8;
+            font-size: 13px;
+        }
+        .auth-switch a {
+            color: #8fd4d2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .auth-switch a:hover {
+            color: #b5e7e5;
+            text-decoration: underline;
+        }
+        /*SMALL BOTTOM TEXT*/
+        .journey-text {
+            margin-top: 30px;
+            color: #8fa8aa;
+            font-size: 13px;
+        }
+        /*MOBILE*/
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+            }
+            .auth-container {
+                flex-direction: column;
+                gap: 45px;
+                text-align: center;
+            }
+            .auth-intro {
+                width: 100%;
+                padding-right: 0;
+            }
+            .auth-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .auth-card {
+                max-width: 500px;
+                text-align: left;
+            }
+        }
+        @media (max-width: 600px) {
+            .navbar {
+                height: 70px;
+                padding: 0 5%;
+            }
+            .logo {
+                font-size: 24px;
+            }
+            .nav-buttons {
+                gap: 12px;
+            }
+            .login-link {
+                font-size: 13px;
+            }
+            .create-button {
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+            .auth-page {
+                min-height: calc(100vh - 70px);
+                padding: 45px 20px;
+            }
+            .auth-intro h1 {
+                font-size: 48px;
+            }
+            .auth-card {
+                padding: 30px 24px;
+                border-radius: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="navbar">
+        <!-- LOGO -->
+        <a
+            href="index.html"
+            class="logo"
+        >
+            SignVerse
+        </a>
+        <!-- NAVIGATION -->
+        <nav class="nav-links">
+            <a href="index.html">
+                Home
+            </a>
+            <a href="dashboard.html">
+                Learn
+            </a>
+            <a href="#">
+                Progress
+            </a>
+        </nav>
+
+        <div class="nav-buttons">
+            <a
+                href="login.html"
+                class="login-link"
+            >
+                Sign In
+            </a>
+            <a
+                href="signup.html"
+                class="create-button"
+            >
+                Create Account
+            </a>
+        </div>
+    </header>
+    <!-- LOGIN PAGE -->
+    <main class="auth-page">
+        <div class="auth-container">
+            <!-- LEFT INTRODUCTION-->
+            <section class="auth-intro">
+                <p class="auth-small-text">
+                    Welcome Back
+                </p>
+                <h1>
+                    Continue your
+                    <br>
+                    <span>
+                        journey.
+                    </span>
+                </h1>
+                <p class="auth-description">
+                    Sign in to continue learning
+                    Indian Sign Language.
+                </p>
+                <p class="journey-text">
+                    Your journey into Indian Sign Language
+                    continues here.
+                </p>
+            </section>
+            <!-- LOGIN CARD -->
+            <section class="auth-card">
+                <!-- LOGIN MESSAGE -->
+                <div id="login-message"></div>
+                <!-- LOGIN FORM -->
+                <form id="login-form">
+                    <!-- EMAIL -->
+                    <div class="form-group">
+                        <label for="login-email">
+                            Email
+                        </label>
+                        <input
+                            type="email"
+                            id="login-email"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            required
+                        >
+                        <small
+                            class="field-error"
+                            id="login-email-error"
+                        ></small>
+                    </div>
+                    <!-- PASSWORD -->
+                    <div class="form-group">
+                        <label for="login-password">
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            id="login-password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+                        <small
+                            class="field-error"
+                            id="login-password-error"
+                        ></small>
+                    </div>
+                    <!-- LOGIN BUTTON -->
+                    <button
+                        type="submit"
+                        class="auth-button"
+                        id="login-button"
+                    >
+                        Sign In
+                    </button>
+                </form>
+                <!-- SIGNUP -->
+                <p class="auth-switch">
+                    Don't have an account?
+                    <a href="signup.html">
+                        Create one
+                    </a>
+                </p>
+            </section>
+        </div>
+    </main>
+    <!-- JAVASCRIPT-->
+    <script>
+
+    // BACKEND URL
+    const API_URL = "http://127.0.0.1:8000";
+
+    // LOGIN
+    const loginForm = document.getElementById("login-form");
+    if (loginForm) {
+        loginForm.addEventListener("submit", async function (event) {
+            // Stop normal form submission
+            event.preventDefault();
+
+            // GET FORM ELEMENTS
+            const emailInput =
+                document.getElementById("login-email");
+            const passwordInput =
+                document.getElementById("login-password");
+            const emailError =
+                document.getElementById("login-email-error");
+            const passwordError =
+                document.getElementById("login-password-error");
+            const message =
+                document.getElementById("login-message");
+            const loginButton =
+                document.getElementById("login-button");
+
+            // GET VALUES
+            const email =
+                emailInput.value.trim();
+            const password =
+                passwordInput.value;
+
+            // CLEAR OLD ERRORS
+            emailError.textContent = "";
+            passwordError.textContent = "";
+            message.textContent = "";
+            message.className = "";
+            emailInput.classList.remove("input-error");
+            passwordInput.classList.remove("input-error");
+            let hasError = false;
+
+            // EMAIL VALIDATION
+            if (email === "") {
+                emailError.textContent =
+                    "Email is required.";
+                emailInput.classList.add("input-error");
+                hasError = true;
+            } else {
+                const emailPattern =
+                    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    emailError.textContent =
+                        "Please enter a valid email address.";
+                    emailInput.classList.add("input-error");
+                    hasError = true;
+                }
+            }
+
+            // PASSWORD VALIDATION
+            if (password === "") {
+                passwordError.textContent =
+                    "Password is required.";
+                passwordInput.classList.add("input-error");
+                hasError = true;
+            }
+
+            // STOP IF VALIDATION FAILED
+            if (hasError) {
+                message.textContent =
+                    "Please correct the errors above.";
+                message.className = "error";
+                return;
+            }
+
+            // DISABLE BUTTON
+            loginButton.disabled = true;
+            loginButton.innerHTML =
+                "Signing In...";
+
+            // SEND LOGIN REQUEST
+            try {
+                const response = await fetch(
+                    API_URL + "/login",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            email: email,
+                            password: password
+                        })
+                    }
+                );
+                const data =
+                    await response.json();
+
+                // BACKEND ERROR
+                if (!response.ok) {
+                    message.textContent =
+                        data.detail ||
+                        "Invalid email or password.";
+                    message.className = "error";
+                    emailInput.classList.add("input-error");
+                    passwordInput.classList.add("input-error");
+                    loginButton.disabled = false;
+                    loginButton.innerHTML =
+                        'Sign In <span>↗</span>';
+                    return;
+                }
+
+                // LOGIN SUCCESSFUL
+                localStorage.setItem(
+                    "access_token",
+                    data.access_token
+                );
+                localStorage.setItem(
+                    "user",
+                    JSON.stringify(data.user)
+                );
+                message.textContent =
+                    "Login successful! Redirecting...";
+                message.className = "success";
+
+                // REDIRECT TO DASHBOARD
+                setTimeout(function () {
+                    window.location.href =
+                        "dashboard.html";
+                }, 1000);
+            }
+
+            // SERVER CONNECTION ERROR
+            catch (error) {
+                console.error(
+                    "Login error:",
+                    error
+                );
+                message.textContent =
+                    "Unable to connect to SignVerse server. Please make sure the backend is running.";
+                message.className = "error";
+                loginButton.disabled = false;
+                loginButton.innerHTML =
+                    'Sign In';
+            }
+        });
+    }
+
+    </script>
+</body>
+</html>
