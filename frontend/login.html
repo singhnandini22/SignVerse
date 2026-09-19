@@ -305,38 +305,17 @@
     <!-- HEADER -->
     <header class="navbar">
         <!-- LOGO -->
-        <a
-            href="index.html"
-            class="logo"
-        >
-            SignVerse
-        </a>
+        <a href="index.html" class="logo">SignVerse</a>
         <!-- NAVIGATION -->
         <nav class="nav-links">
-            <a href="index.html">
-                Home
-            </a>
-            <a href="dashboard.html">
-                Learn
-            </a>
-            <a href="#">
-                Progress
-            </a>
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Learn</a>
+            <a href="dashboard.html">Progress</a>
         </nav>
 
         <div class="nav-buttons">
-            <a
-                href="login.html"
-                class="login-link"
-            >
-                Sign In
-            </a>
-            <a
-                href="signup.html"
-                class="create-button"
-            >
-                Create Account
-            </a>
+            <a href="login.html"class="login-link">Sign In</a>
+            <a href="signup.html"class="create-button">Create Account</a>
         </div>
     </header>
     <!-- LOGIN PAGE -->
@@ -344,16 +323,8 @@
         <div class="auth-container">
             <!-- LEFT INTRODUCTION-->
             <section class="auth-intro">
-                <p class="auth-small-text">
-                    Welcome Back
-                </p>
-                <h1>
-                    Continue your
-                    <br>
-                    <span>
-                        journey.
-                    </span>
-                </h1>
+                <p class="auth-small-text">Welcome Back</p>
+                <h1>Continue your<br><span>journey.</span></h1>
                 <p class="auth-description">
                     Sign in to continue learning
                     Indian Sign Language.
@@ -371,9 +342,7 @@
                 <form id="login-form">
                     <!-- EMAIL -->
                     <div class="form-group">
-                        <label for="login-email">
-                            Email
-                        </label>
+                        <label for="login-email">Email</label>
                         <input
                             type="email"
                             id="login-email"
@@ -381,16 +350,11 @@
                             autocomplete="email"
                             required
                         >
-                        <small
-                            class="field-error"
-                            id="login-email-error"
-                        ></small>
+                        <small class="field-error" id="login-email-error"></small>
                     </div>
                     <!-- PASSWORD -->
                     <div class="form-group">
-                        <label for="login-password">
-                            Password
-                        </label>
+                        <label for="login-password">Password</label>
                         <input
                             type="password"
                             id="login-password"
@@ -398,62 +362,40 @@
                             autocomplete="current-password"
                             required
                         >
-                        <small
-                            class="field-error"
-                            id="login-password-error"
-                        ></small>
+                        <small class="field-error" id="login-password-error"></small>
                     </div>
                     <!-- LOGIN BUTTON -->
-                    <button
-                        type="submit"
-                        class="auth-button"
-                        id="login-button"
-                    >
-                        Sign In
-                    </button>
+                    <button type="submit" class="auth-button" id="login-button">Sign In</button>
                 </form>
                 <!-- SIGNUP -->
-                <p class="auth-switch">
-                    Don't have an account?
-                    <a href="signup.html">
-                        Create one
-                    </a>
-                </p>
+                <p class="auth-switch">Don't have an account?<a href="signup.html">Create one</a></p>
             </section>
         </div>
     </main>
+
     <!-- JAVASCRIPT-->
     <script>
 
-    // BACKEND URL
-    const API_URL = "http://127.0.0.1:8000";
+    const API_URL = "http://127.0.0.1:8000"; // BACKEND URL
 
     // LOGIN
     const loginForm = document.getElementById("login-form");
     if (loginForm) {
         loginForm.addEventListener("submit", async function (event) {
-            // Stop normal form submission
-            event.preventDefault();
+
+            event.preventDefault();  // Stop normal form submission
 
             // GET FORM ELEMENTS
-            const emailInput =
-                document.getElementById("login-email");
-            const passwordInput =
-                document.getElementById("login-password");
-            const emailError =
-                document.getElementById("login-email-error");
-            const passwordError =
-                document.getElementById("login-password-error");
-            const message =
-                document.getElementById("login-message");
-            const loginButton =
-                document.getElementById("login-button");
+            const emailInput = document.getElementById("login-email");
+            const passwordInput = document.getElementById("login-password");
+            const emailError = document.getElementById("login-email-error");
+            const passwordError = document.getElementById("login-password-error");
+            const message = document.getElementById("login-message");
+            const loginButton = document.getElementById("login-button");
 
             // GET VALUES
-            const email =
-                emailInput.value.trim();
-            const password =
-                passwordInput.value;
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
 
             // CLEAR OLD ERRORS
             emailError.textContent = "";
@@ -466,16 +408,13 @@
 
             // EMAIL VALIDATION
             if (email === "") {
-                emailError.textContent =
-                    "Email is required.";
+                emailError.textContent = "Email is required.";
                 emailInput.classList.add("input-error");
                 hasError = true;
             } else {
-                const emailPattern =
-                    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailPattern.test(email)) {
-                    emailError.textContent =
-                        "Please enter a valid email address.";
+                    emailError.textContent = "Please enter a valid email address.";
                     emailInput.classList.add("input-error");
                     hasError = true;
                 }
@@ -483,24 +422,21 @@
 
             // PASSWORD VALIDATION
             if (password === "") {
-                passwordError.textContent =
-                    "Password is required.";
+                passwordError.textContent ="Password is required.";
                 passwordInput.classList.add("input-error");
                 hasError = true;
             }
 
             // STOP IF VALIDATION FAILED
             if (hasError) {
-                message.textContent =
-                    "Please correct the errors above.";
+                message.textContent ="Please correct the errors above.";
                 message.className = "error";
                 return;
             }
 
             // DISABLE BUTTON
             loginButton.disabled = true;
-            loginButton.innerHTML =
-                "Signing In...";
+            loginButton.innerHTML = "Signing In...";
 
             // SEND LOGIN REQUEST
             try {
@@ -508,64 +444,43 @@
                     API_URL + "/login",
                     {
                         method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
+                        headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
                             email: email,
                             password: password
                         })
                     }
                 );
-                const data =
-                    await response.json();
+                const data = await response.json();
 
                 // BACKEND ERROR
                 if (!response.ok) {
-                    message.textContent =
-                        data.detail ||
-                        "Invalid email or password.";
+                    message.textContent = data.detail || "Invalid email or password.";
                     message.className = "error";
                     emailInput.classList.add("input-error");
                     passwordInput.classList.add("input-error");
                     loginButton.disabled = false;
-                    loginButton.innerHTML =
-                        'Sign In <span>↗</span>';
+                    loginButton.innerHTML ='Sign In';
                     return;
                 }
 
                 // LOGIN SUCCESSFUL
-                localStorage.setItem(
-                    "access_token",
-                    data.access_token
-                );
-                localStorage.setItem(
-                    "user",
-                    JSON.stringify(data.user)
-                );
-                message.textContent =
-                    "Login successful! Redirecting...";
+                localStorage.setItem("access_token",data.access_token);
+                localStorage.setItem("user",JSON.stringify(data.user));
+                message.textContent ="Login successful! Redirecting...";
                 message.className = "success";
 
                 // REDIRECT TO DASHBOARD
-                setTimeout(function () {
-                    window.location.href =
-                        "dashboard.html";
-                }, 1000);
+                setTimeout(function () {window.location.href ="dashboard.html";}, 1000);
             }
 
             // SERVER CONNECTION ERROR
             catch (error) {
-                console.error(
-                    "Login error:",
-                    error
-                );
-                message.textContent =
-                    "Unable to connect to SignVerse server. Please make sure the backend is running.";
+                console.error("Login error:",error);
+                message.textContent ="Unable to connect to SignVerse server. Please make sure the backend is running.";
                 message.className = "error";
                 loginButton.disabled = false;
-                loginButton.innerHTML =
-                    'Sign In';
+                loginButton.innerHTML = 'Sign In';
             }
         });
     }
