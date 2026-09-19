@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Dashboard | SignVerse</title>
+    <style>
+        /* COLOR PALETTE */
+        :root {
+            --dark-teal: #23484E;
+            --blue-teal: #386875;
+            --teal: #4AA5AA;
+            --orange: #FFA000;
+            --cream: #F5F2E8;
+            --light-text: #D5DFDD;
+            --muted-text: #A8B9B8;
+            --border: rgba(245, 242, 232, 0.18);
+        }
+        /* GLOBAL STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: var(--dark-teal);
+            color: var(--cream);
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        a {
+            text-decoration: none;
+        }
+        /* HEADER */
+        .header {
+            width: 100%;
+            height: 86px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            background-color: var(--dark-teal);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            z-index: 10;
+        }
+        /*LOGO*/
+        .logo {
+            color: var(--cream);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: -1px;
+        }
+        .logo:hover {
+            color: var(--cream);
+        }
+        /*NAVIGATION*/
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 42px;
+        }
+        .header-nav a {
+            color: var(--light-text);
+            font-size: 15px;
+            transition: color 0.3s ease;
+        }
+        .header-nav a:hover {
+            color: var(--orange);
+        }
+        .header-nav a.active {
+            color: var(--teal);
+        }
+        /*LOGOUT*/
+        .logout-button {
+            padding: 12px 22px;
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            background-color: var(--orange);
+            color: var(--dark-teal);
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+
+        }
+        .logout-button:hover {
+            background-color: var(--orange);
+            border-color: var(--orange);
+            color: var(--dark-teal);
+            transform: translateY(-2px);
+        }
+        /*DASHBOARD*/
+        .dashboard {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 75px 5% 100px;
+        }
+        /*WELCOME SECTION*/
+        .dashboard-welcome {
+            margin-bottom: 55px;
+        }
+        .small-heading {
+            color: var(--teal);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+        .dashboard-welcome h1 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(48px, 6vw, 72px);
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -3px;
+            margin-bottom: 22px;
+        }
+        .dashboard-welcome h1 span {
+            color: var(--orange);
+        }
+        .dashboard-welcome > p:last-child {
+            color: var(--light-text);
+            font-size: 17px;
+            line-height: 1.7;
+        }
+        /*PROGRESS SECTION*/
+        .progress-section {
+            width: 100%;
+            margin-bottom: 85px;
+        }
+        .progress-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        /*PROGRESS CARD*/
+        .progress-card {
+            padding: 32px;
+            background-color: rgba(56, 104, 117, 0.55);
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            transition:
+                transform 0.3s ease,
+                background-color 0.3s ease,
+                border-color 0.3s ease;
+        }
+        .progress-card:hover {
+            transform: translateY(-5px);
+            background-color: rgba(56, 104, 117, 0.75);
+            border-color: rgba(245, 242, 232, 0.28);
+        }
+        /*CARD LABEL*/
+        .progress-card-label {
+            color: var(--light-text);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+        /*PERCENTAGE*/
+        .progress-percentage {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 44px;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+        .letters-percentage {
+            color: var(--teal);
+        }
+        .numbers-percentage {
+            color: var(--orange);
+        }
+        /*PROGRESS TEXT*/
+        .progress-text {
+            color: var(--light-text);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        /*PROGRESS BAR*/
+        .progress-bar {
+            width: 100%;
+            height: 9px;
+            background-color: rgba(35, 72, 78, 0.75);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 20px;
+            transition: width 0.6s ease;
+        }
+        .letters-fill {
+            background-color: var(--teal);
+        }
+        .numbers-fill {
+            background-color: var(--orange);
+        }
+        /*LEARNING SECTION*/
+        .learning-section {
+            width: 100%;
+        }
+        .learning-heading {
+            margin-bottom: 38px;
+        }
+        .learning-heading h2 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(40px, 5vw, 58px);
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 15px;
+        }
+        .learning-heading p:last-child {
+            color: var(--light-text);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+        /*LEARNING CARDS*/
+        .learning-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .learning-card {
+            position: relative;
+            min-height: 285px;
+            padding: 35px;
+            background-color: rgba(56, 104, 117, 0.55);
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            transition:
+                transform 0.3s ease,
+                background-color 0.3s ease,
+                border-color 0.3s ease;
+        }
+        .learning-card:hover {
+            transform: translateY(-5px);
+            background-color: rgba(56, 104, 117, 0.75);
+        }
+        .letters-card:hover {
+            border-color: var(--teal);
+        }
+        .numbers-card:hover {
+            border-color: var(--orange);
+        }
+        /*CARD TOP*/
+        .learning-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        /*LARGE SYMBOL*/
+        .learning-symbol {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 58px;
+            line-height: 1;
+        }
+        .letters-card .learning-symbol {
+            color: var(--teal);
+        }
+        .numbers-card .learning-symbol {
+            color: var(--orange);
+        }
+        /*LEVEL BADGE*/
+        .level-badge {
+            padding: 7px 13px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--light-text);
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        /*CARD CONTENT*/
+        .learning-card-content {
+            margin-top: 25px;
+        }
+        .learning-card-content h3 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 30px;
+            margin-bottom: 12px;
+            color: var(--cream);
+        }
+        .learning-card-content p {
+            color: var(--light-text);
+            font-size: 14px;
+            line-height: 1.7;
+            max-width: 450px;
+        }
+        /*START LEARNING BUTTON*/
+        .learning-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            margin-top: 28px;
+            padding: 13px 21px;
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition:
+                transform 0.3s ease,
+                background-color 0.3s ease;
+        }
+        .learning-button:hover {
+            transform: translateY(-3px);
+        }
+        /* LETTERS BUTTON */
+        .letters-button {
+            background-color: var(--teal);
+            color: var(--dark-teal);
+        }
+        .letters-button:hover {
+            background-color: #66B8BC;
+        }
+        /* NUMBERS BUTTON */
+        .numbers-button {
+            background-color: var(--orange);
+            color: var(--dark-teal);
+        }
+        .numbers-button:hover {
+            background-color: #FFB52E;
+        }
+        /*RESPONSIVE DESIGN*/
+        @media (max-width: 900px) {
+            .dashboard {
+                padding: 65px 6% 80px;
+            }
+            .progress-cards {
+                grid-template-columns: 1fr;
+            }
+            .learning-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* TABLET */
+        @media (max-width: 800px) {
+            .header {
+                height: 75px;
+                padding: 0 6%;
+            }
+            .logo {
+                font-size: 27px;
+            }
+            .header-nav {
+                gap: 22px;
+            }
+            .header-nav a {
+                font-size: 13px;
+            }
+            .logout-button {
+                padding: 10px 18px;
+                font-size: 13px;
+            }
+            .dashboard {
+                padding: 60px 6% 75px;
+            }
+            .dashboard-welcome {
+                margin-bottom: 45px;
+            }
+            .dashboard-welcome h1 {
+                font-size: clamp(45px, 8vw, 62px);
+            }
+            .learning-heading h2 {
+                font-size: 45px;
+            }
+        }
+        /* MOBILE */
+        @media (max-width: 550px) {
+            .header {
+                height: auto;
+                min-height: 70px;
+                padding: 15px 5%;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            .logo {
+                font-size: 25px;
+            }
+            .header-nav {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                padding-top: 13px;
+                border-top: 1px solid var(--border);
+                gap: 28px;
+            }
+            .header-nav a {
+                font-size: 12px;
+            }
+            .logout-button {
+                padding: 9px 16px;
+            }
+            .dashboard {
+                padding: 55px 5% 65px;
+            }
+            .small-heading {
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+            .dashboard-welcome h1 {
+                font-size: 43px;
+                letter-spacing: -2px;
+            }
+            .dashboard-welcome > p:last-child {
+                font-size: 15px;
+            }
+            .progress-card {
+                padding: 28px;
+            }
+            .progress-percentage {
+                font-size: 40px;
+            }
+            .learning-heading h2 {
+                font-size: 38px;
+            }
+            .learning-card {
+                min-height: 270px;
+                padding: 28px;
+            }
+            .learning-symbol {
+                font-size: 52px;
+            }
+            .learning-card-content h3 {
+                font-size: 27px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <!-- LOGO -->
+        <a href="dashboard.html" class="logo"> SignVerse </a>
+        <!-- NAVIGATION -->
+        <nav class="header-nav"> <a href="index.html"> Home </a>
+            <a href="dashboard.html" class="active" > Learn </a>
+            <a href="dashboard.html"> Progress </a>
+        </nav>
+        <!-- LOGOUT -->
+        <button class="logout-button" id="logout-button"> Logout </button>
+    </header>
+    <!-- MAIN DASHBOARD -->
+    <main class="dashboard">
+        <!-- WELCOME -->
+        <section class="dashboard-welcome">
+            <p class="small-heading"> Your SignVerse Journey </p>
+            <h1>Welcome back,<span id="user-name">User</span>.</h1>
+            <p>Keep learning and continue building your signing skills.</p>
+        </section>
+        <!-- PROGRESS -->
+        <section class="progress-section">
+            <div class="progress-cards">
+                <!-- LETTERS PROGRESS -->
+                <div class="progress-card letters-progress-card">
+                    <p class="progress-card-label">LETTERS</p>
+                    <div class="progress-percentage letters-percentage" id="letters-progress"> 0% </div>
+                    <p class="progress-text" id="letters-progress-text"> 0 of 26 letters</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill letters-fill" id="letters-progress-fill"></div>
+                    </div>
+                </div>
+                <!-- NUMBERS PROGRESS -->
+                <div class="progress-card numbers-progress-card">
+                    <p class="progress-card-label"> NUMBERS </p>
+                    <div class="progress-percentage numbers-percentage" id="numbers-progress" >0%</div>
+                    <p class="progress-text" id="numbers-progress-text">0 of 10 numbers</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill numbers-fill" id="numbers-progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- LEARNING -->
+        <section class="learning-section">
+            <div class="learning-heading">
+                <p class="small-heading"> Learning</p>
+                <h2>Where do you want to start?</h2>
+                <p>Choose a topic and start learning at your own pace.</p>
+            </div>
+            <!-- LEARNING CARDS -->
+            <div class="learning-cards">
+                <!-- LETTERS CARD -->
+                <div class="learning-card letters-card">
+                    <div>
+                        <!-- CARD TOP -->
+                        <div class="learning-card-top">
+                            <div class="learning-symbol"> A </div>
+                            <span class="level-badge"> Beginner </span>
+                        </div>
+                        <!-- CARD CONTENT -->
+                        <div class="learning-card-content">
+                            <h3> Letters </h3>
+                            <p> Learn the Indian Sign Language alphabet through simple and interactive lessons.</p>
+                        </div>
+                    </div>
+                    <!-- BUTTON -->
+                    <a href="learning.html?type=letters" class="learning-button letters-button">Start Learning</a>
+                </div>
+                <!-- NUMBERS CARD -->
+                <div class="learning-card numbers-card">
+                    <div>
+                        <!-- CARD TOP -->
+                        <div class="learning-card-top">
+                            <div class="learning-symbol">1</div>
+                            <span class="level-badge"> Beginner</span>
+                        </div>
+                        <!-- CARD CONTENT -->
+                        <div class="learning-card-content">
+                            <h3>Numbers</h3>
+                            <p>Learn numbers through simple and interactive Indian Sign Language lessons.</p>
+                        </div>
+                    </div>
+                    <!-- BUTTON -->
+                    <a href="learning.html?type=numbers" class="learning-button numbers-button">Start Learning</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- JAVASCRIPT -->
+    <script src="js/script.js"></script>
+</body>
+</html>
