@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Learn | SignVerse</title>
+    <style>
+        /* COLOR PALETTE */
+        :root {
+            --dark-teal: #23484E;
+            --blue-teal: #386875;
+            --teal: #4AA5AA;
+            --orange: #FFA000;
+            --cream: #F5F2E8;
+            --light-text: #D5DFDD;
+            --muted-text: #A8B9B8;
+            --border: rgba(245, 242, 232, 0.18);
+        }
+        /* GLOBAL STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: var(--dark-teal);
+            color: var(--cream);
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        a {
+            text-decoration: none;
+        }
+        /* NAVIGATION BAR */
+        .navbar {
+            width: 100%;
+            height: 86px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            background-color: var(--dark-teal);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            z-index: 10;
+        }
+        /* LOGO */
+        .logo {
+            color: var(--cream);
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: -1px;
+        }
+        /* NAVIGATION LINKS */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 42px;
+        }
+        .nav-links a {
+            color: var(--light-text);
+            font-size: 15px;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: var(--orange);
+        }
+        /* LOGOUT  */
+        .logout-button {
+            display: none;
+            background-color: var(--orange);
+            color: var(--dark-teal);
+            padding: 13px 24px;
+            border: none;
+            border-radius: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition:transform 0.3s ease,background-color 0.3s ease;
+        }
+        .logout-button:hover {
+            background-color: var(--orange);
+            color: var(--dark-teal);
+            border-color: var(--orange);
+        }
+        /* MAIN LEARNING PAGE */
+        .learning-page {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 55px 5% 80px;
+        }
+        .learning-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 35px;
+        }
+        .small-heading {
+            color: var(--teal);
+            font-size: 13px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        .learning-top h1 {
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+            font-size: 48px;
+            line-height: 1;
+        }
+        .back-button {
+            color: var(--cream);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 12px 20px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        .back-button:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+        }
+        /* PROGRESS */
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--muted-text);
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 7px;
+            background-color:
+                rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 55px;
+        }
+        .progress-fill {
+            width: 3.84%;
+            height: 100%;
+            background-color: var(--teal);
+            border-radius: 20px;
+            transition: width 0.4s ease;
+        }
+        /* LEARNING CONTENT */
+        .learning-content {
+            display: grid;
+            grid-template-columns: 45% 55%;
+            align-items: center;
+            gap: 70px;
+        }
+        /* SIGN IMAGE AREA */
+        .sign-image-container {
+            width: 100%;
+            height: 430px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--blue-teal);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            overflow: hidden;
+        }
+        /* ACTUAL HAND SIGN IMAGE */
+        .sign-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: none;
+        }
+        /* IMAGE PLACEHOLDER */
+        .image-placeholder {
+            color: var(--light-text);
+            font-size: 15px;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            text-align: center;
+            padding: 20px;
+        }
+        /*LETTER INFORMATION*/
+        .letter-content h2 {
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+            font-size: 58px;
+            margin-bottom: 20px;
+        }
+        .letter-content p {
+            color: var(--light-text);
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 500px;
+            margin-bottom: 35px;
+        }
+        /* NAVIGATION BUTTONS */
+        .navigation-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        .previous-button,
+        .next-button {
+            padding: 13px 22px;
+            border-radius: 30px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .previous-button {
+            background-color: transparent;
+            color: var(--cream);
+            border: 1px solid var(--border);
+        }
+        .previous-button:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+        }
+        .previous-button:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+        .next-button {
+            background-color: var(--orange);
+            color: var(--dark-teal);
+            border: 1px solid var(--orange);
+            font-weight: bold;
+        }
+        .next-button:hover {
+            background-color: #FFB52E;
+            border-color: #FFB52E;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 800px) {
+            .navbar {
+                height: 75px;
+                padding: 0 6%;
+            }
+            .logo {
+                font-size: 27px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .learning-page {
+                padding: 45px 6% 60px;
+            }
+            .learning-top {
+                flex-direction: column;
+                gap: 25px;
+            }
+            .learning-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .sign-image-container {
+                height: 350px;
+            }
+            .letter-content h2 {
+                font-size: 48px;
+            }
+        }
+        @media (max-width: 500px) {
+            .navbar {
+                padding: 0 5%;
+            }
+            .logo {
+                font-size: 25px;
+            }
+            .learning-page {
+                padding-top: 40px;
+            }
+            .learning-top h1 {
+                font-size: 40px;
+            }
+            .sign-image-container {
+                height: 300px;
+            }
+            .letter-content h2 {
+                font-size: 42px;
+            }
+            .letter-content p {
+                font-size: 15px;
+            }
+            .navigation-buttons {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION BAR -->
+    <header class="navbar">
+        <!-- LOGO -->
+        <a href="dashboard.html" class="logo">SignVerse</a>
+        <!-- NAVIGATION LINKS -->
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Learn</a>
+            <a href="dashboard.html">Progress</a>
+        </nav>
+        <!-- LOGOUT -->
+        <button class="logout-button" id="logout-button">Logout</button>
+    </header>
+    <!-- MAIN LEARNING PAGE-->
+    <main class="learning-page">
+        <!-- HEADER -->
+        <div class="learning-top">
+            <div>
+                <p class="small-heading"> Learning</p>
+                <h1 id="lesson-title">Letters</h1>
+            </div>
+            <!-- BACK TO DASHBOARD -->
+            <a href="dashboard.html" class="back-button"> Back to dashboard</a>
+        </div>
+        <!-- PROGRESS INFORMATION -->
+        <div class="progress-info">
+            <span id="progress-count">1 / 26</span>
+            <span id="progress-percentage">4% complete</span>
+        </div>
+        <!-- PROGRESS BAR -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <!-- LEARNING CONTENT -->
+        <section class="learning-content">
+            <!-- HAND SIGN IMAGE -->
+            <div class="sign-image-container">
+
+                <!--THE ACTUAL IMAGE WILL BE LOADED HERE BY JAVASCRIPT.-->
+                <img id="sign-image" src="" alt="Indian Sign Language hand sign">
+                <span class="image-placeholder" id="image-placeholder">Hand sign image will appear here</span>
+            </div>
+
+            <!-- LETTER INFORMATION -->
+            <div class="letter-content">
+                <h2 id="letter-title"> Letter A </h2>
+                <p id="letter-description">
+                    Learn the hand position for the ISL
+                    letter A. Indian Sign Language uses
+                    both hands for the alphabet, so keep
+                    your palms relaxed and facing forward.
+                </p>
+                <!-- PREVIOUS / NEXT -->
+                <div class="navigation-buttons">
+                    <button class="previous-button" id="previous-button" disabled >Previous</button>
+                    <button class="next-button" id="next-button" > Next </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        /* LETTER AND NUMBER LISTS */
+        const letters = [
+            "A", "B", "C", "D", "E", "F", "G", "H", "I","J", "K", "L", "M", "N", "O", "P", "Q", "R","S", "T", "U", "V", "W", "X", "Y", "Z"
+        ];
+        const numbers = [
+            "1", "2", "3", "4", "5","6", "7", "8", "9", "10"
+        ];
+
+        /* GET TYPE FROM URL */
+        const urlParams = new URLSearchParams( window.location.search);
+        const learningType = urlParams.get("type") === "numbers" ? "numbers": "letters";
+
+        /* SELECT CURRENT LIST */
+        const items = learningType === "numbers" ? numbers : letters;
+
+        /* CURRENT ITEM */
+        let currentItem = 0;
+
+        /* GET CURRENT ITEM FROM URL */
+        const itemFromURL = urlParams.get("item");
+        if (itemFromURL) {
+            const itemIndex = items.indexOf(itemFromURL.toUpperCase());
+            if (itemIndex !== -1) {
+                currentItem = itemIndex;
+            }
+        }
+
+        /* GET HTML ELEMENTS */
+        const lessonTitle = document.getElementById("lesson-title");
+        const letterTitle = document.getElementById("letter-title");
+        const letterDescription = document.getElementById("letter-description");
+        const signImage = document.getElementById("sign-image");
+        const imagePlaceholder = document.getElementById("image-placeholder");
+        const progressCount = document.getElementById("progress-count");
+        const progressPercentage = document.getElementById("progress-percentage");
+        const progressFill = document.getElementById("progress-fill");
+        const previousButton = document.getElementById("previous-button");
+        const nextButton = document.getElementById("next-button");
+
+        /* SHOW CURRENT ITEM*/
+        function showItem() {
+            const item = items[currentItem];
+
+            /* LETTERS*/
+            if (learningType === "letters") {
+
+                lessonTitle.textContent = "Letters";
+                letterTitle.textContent = "Letter " + item;
+                letterDescription.textContent = "Learn the hand position for the ISL letter " + item + ". Practice the hand shape carefully "+ "and observe the position of your fingers "+ "and palm.";
+                signImage.src ="images/letters/"+ item + ".png";
+                signImage.alt ="Indian Sign Language hand sign for letter "+ item;
+            }
+
+            /* NUMBERS */
+            else {
+                lessonTitle.textContent = "Numbers";
+                letterTitle.textContent = "Number " + item;
+                letterDescription.textContent = "Learn the hand position for the ISL number " + item + ". Observe the finger positions carefully " + "and practice the sign.";
+                signImage.src = "images/numbers/" + item + ".png";
+                signImage.alt = "Indian Sign Language hand sign for number "+ item;
+            }
+
+            /* WHEN IMAGE LOADS SUCCESSFULLY */
+            signImage.onload = function () {
+                signImage.style.display = "block";
+                imagePlaceholder.style.display = "none";
+            };
+
+            /* WHEN IMAGE DOES NOT EXIST */
+            signImage.onerror = function () {
+                signImage.style.display = "none";
+                imagePlaceholder.style.display = "block";
+            };
+
+            /* PROGRESS CALCULATION */
+            const currentPosition = currentItem + 1;
+            const totalItems = items.length;
+            const percentage = Math.round((currentPosition / totalItems) * 100);
+
+            /* UPDATE PROGRESS TEXT */
+            progressCount.textContent = currentPosition + " / " + totalItems;
+            progressPercentage.textContent = percentage + "% complete";
+
+            /* UPDATE PROGRESS BAR */
+            progressFill.style.width = percentage + "%";
+
+            /* PREVIOUS BUTTON */
+            previousButton.disabled = currentItem === 0;
+
+            /* NEXT BUTTON */
+            if ( currentItem === items.length - 1)
+            {
+                nextButton.textContent = "Finish";
+            }
+            else {
+                nextButton.textContent = "Next";
+            }
+        }
+
+        /* NEXT BUTTON */
+        nextButton.addEventListener("click",function ()
+            {
+                const item =
+                    items[currentItem];
+                /* GO TO PRACTICE PAGE */
+                window.location.href = "practice.html?type=" + learningType + "&item=" + item;
+            }
+        );
+
+        /* PREVIOUS BUTTON */
+        previousButton.addEventListener("click",function ()
+        {
+                if (currentItem > 0) {
+                    currentItem--;
+                    showItem();
+                }
+            }
+        );
+
+        /* INITIAL PAGE LOAD */
+        showItem();
+
+    </script>
+</body>
+</html>
