@@ -406,55 +406,26 @@
 <body>
     <!--NAVIGATION BAR-->
     <header class="navbar">
-
-        <a
-            href="index.html"
-            class="logo"
-        >
-            SignVerse
-        </a>
+        <a href="index.html" class="logo"> SignVerse </a>
 
         <nav class="nav-links">
-            <a href="index.html">
-                Home
-            </a>
-            <a href="dashboard.html">
-                Learn
-            </a>
-            <a href="#">
-                Progress
-            </a>
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Learn</a>
+            <a href="dashboard.html">Progress</a>
         </nav>
 
         <div class="nav-buttons">
-            <a
-                href="login.html"
-                class="login-link"
-            >
-                Sign In
-            </a>
-            <a
-                href="signup.html"
-                class="create-button"
-            >
-                Create Account
-            </a>
+            <a href="login.html" class="login-link"> Sign In </a>
+            <a href="signup.html"class="create-button"> Create Account </a>
         </div>
     </header>
+
     <!-- SIGNUP PAGE-->
     <main class="signup-page">
         <!-- LEFT INTRODUCTION-->
         <section class="signup-intro">
-            <p class="intro-small">
-                Start your journey
-            </p>
-            <h1>
-                Create your
-                <br>
-                <span>
-                    account.
-                </span>
-            </h1>
+            <p class="intro-small">Start your journey</p>
+            <h1> Create your <br> <span> account.</span> </h1>
             <p class="intro-description">
                 Join SignVerse and begin learning
                 Indian Sign Language through visual
@@ -466,84 +437,58 @@
         <section class="auth-card">
             <!-- CARD HEADING -->
             <div class="card-heading">
-                <h2>
-                    Create your account
-                </h2>
-                <p>
-                    Fill in your details to get started.
-                </p>
+                <h2> Create your account </h2>
+                <p>Fill in your details to get started.</p>
             </div>
             <!--SIGNUP FORM-->
             <form id="signup-form">
                 <!-- NAME -->
                 <div class="form-group">
-                    <label for="signup-name">
-                        Name
-                    </label>
+                    <label for="signup-name">Name</label>
                     <input
                         type="text"
                         id="signup-name"
                         placeholder="Enter your name"
                         autocomplete="name"
                     >
-                    <small
-                        class="field-error"
-                        id="name-error">
-                    </small>
+                    <small class="field-error" id="name-error"> </small>
                 </div>
                 <!-- EMAIL -->
                 <div class="form-group">
-                    <label for="signup-email">
-                        Email
-                    </label>
+                    <label for="signup-email">Email</label>
                     <input
                         type="email"
                         id="signup-email"
                         placeholder="Enter your email"
                         autocomplete="email"
                     >
-                    <small
-                        class="field-error"
-                        id="email-error">
-                    </small>
+                    <small class="field-error" id="email-error"></small>
                 </div>
                 <!-- PASSWORD -->
                 <div class="form-group">
-                    <label for="signup-password">
-                        Password
-                    </label>
+                    <label for="signup-password"> Password </label>
                     <input
                         type="password"
                         id="signup-password"
                         placeholder="Create a password"
                         autocomplete="new-password"
                     >
-                    <small
-                        class="field-error"
-                        id="password-error">
-                    </small>
+                    <small class="field-error" id="password-error"></small>
                 </div>
                 <!-- CONFIRM PASSWORD -->
                 <div class="form-group">
-                    <label for="signup-confirm-password">
-                        Confirm Password
-                    </label>
+                    <label for="signup-confirm-password">Confirm Password</label>
                     <input
                         type="password"
                         id="signup-confirm-password"
                         placeholder="Re-enter your password"
                         autocomplete="new-password"
                     >
-                    <small
-                        class="field-error"
-                        id="confirm-password-error">
-                    </small>
+                    <small class="field-error" id="confirm-password-error"> </small>
                 </div>
                 <!-- PHONE NUMBER -->
                 <div class="form-group">
-                    <label for="signup-phone">
-                        Phone Number
-                    </label>
+                    <label for="signup-phone">Phone Number</label>
                     <input
                         type="tel"
                         id="signup-phone"
@@ -551,16 +496,11 @@
                         inputmode="numeric"
                         autocomplete="tel"
                     >
-                    <small
-                        class="field-error"
-                        id="phone-error">
-                    </small>
+                    <small class="field-error" id="phone-error"></small>
                 </div>
                 <!-- AGE -->
                 <div class="form-group">
-                    <label for="signup-age">
-                        Age
-                    </label>
+                    <label for="signup-age">Age</label>
                     <input
                         type="number"
                         id="signup-age"
@@ -568,29 +508,17 @@
                         min="1"
                         max="120"
                     >
-                    <small
-                        class="field-error"
-                        id="age-error">
+                    <small class="field-error" id="age-error">
                     </small>
                 </div>
                 <!-- MESSAGE -->
                 <div id="signup-message"></div>
                 <!-- SUBMIT BUTTON -->
-                <button
-                    type="submit"
-                    class="auth-button"
-                    id="signup-button"
-                >
-                    Create Account
-                    <span>↗</span>
-                </button>
+                <button type="submit" class="auth-button" id="signup-button"> Create Account </button>
             </form>
             <!-- LOGIN -->
-            <p class="auth-switch">
-                Already have an account?
-                <a href="login.html">
-                    Sign in
-                </a>
+            <p class="auth-switch"> Already have an account?
+                <a href="login.html"> Sign in </a>
             </p>
         </section>
     </main>
@@ -598,81 +526,39 @@
     <!-- JAVASCRIPT-->
     <script>
         // SIGNVERSE - SIGNUP
-        const signupForm =
-            document.getElementById("signup-form");
-        const signupButton =
-            document.getElementById("signup-button");
-        const signupMessage =
-            document.getElementById("signup-message");
+        const signupForm = document.getElementById("signup-form");
+        const signupButton = document.getElementById("signup-button");
+        const signupMessage = document.getElementById("signup-message");
 
         // FORM SUBMISSION
         signupForm.addEventListener(
             "submit",
             async function (event) {
-                // Stop normal browser form submission
-                event.preventDefault();
+                event.preventDefault();  // Stop normal browser form submission
 
                 // GET VALUES
-                const name =
-                    document
-                        .getElementById("signup-name")
-                        .value
-                        .trim();
-                const email =
-                    document
-                        .getElementById("signup-email")
-                        .value
-                        .trim();
-                const password =
-                    document
-                        .getElementById("signup-password")
-                        .value;
-                const confirmPassword =
-                    document
-                        .getElementById("signup-confirm-password")
-                        .value;
-                const phone =
-                    document
-                        .getElementById("signup-phone")
-                        .value
-                        .trim();
-                const age =
-                    document
-                        .getElementById("signup-age")
-                        .value
-                        .trim();
+                const name = document.getElementById("signup-name").value.trim();
+                const email = document.getElementById("signup-email").value.trim();
+                const password = document.getElementById("signup-password").value;
+                const confirmPassword = document.getElementById("signup-confirm-password").value;
+                const phone = document.getElementById("signup-phone").value.trim();
+                const age = document.getElementById("signup-age").value.trim();
 
                 // GET ERROR ELEMENTS
-                const nameError =
-                    document.getElementById("name-error");
-                const emailError =
-                    document.getElementById("email-error");
-                const passwordError =
-                    document.getElementById("password-error");
-                const confirmPasswordError =
-                    document.getElementById(
-                        "confirm-password-error"
-                    );
-                const phoneError =
-                    document.getElementById("phone-error");
-                const ageError =
-                    document.getElementById("age-error");
+                const nameError = document.getElementById("name-error");
+                const emailError = document.getElementById("email-error");
+                const passwordError = document.getElementById("password-error");
+                const confirmPasswordError = document.getElementById("confirm-password-error");
+                const phoneError = document.getElementById("phone-error");
+                const ageError = document.getElementById("age-error");
 
                 // GET INPUT ELEMENTS
-                const nameInput =
-                    document.getElementById("signup-name");
-                const emailInput =
-                    document.getElementById("signup-email");
-                const passwordInput =
-                    document.getElementById("signup-password");
-                const confirmPasswordInput =
-                    document.getElementById(
-                        "signup-confirm-password"
-                    );
-                const phoneInput =
-                    document.getElementById("signup-phone");
-                const ageInput =
-                    document.getElementById("signup-age");
+                const nameInput = document.getElementById("signup-name");
+                const emailInput = document.getElementById("signup-email");
+                const passwordInput = document.getElementById("signup-password");
+                const confirmPasswordInput = document.getElementById("signup-confirm-password");
+                const phoneInput = document.getElementById("signup-phone");
+                const ageInput = document.getElementById("signup-age");
 
                 // CLEAR PREVIOUS ERRORS
                 nameError.textContent = "";
@@ -684,9 +570,7 @@
                 nameInput.classList.remove("input-error");
                 emailInput.classList.remove("input-error");
                 passwordInput.classList.remove("input-error");
-                confirmPasswordInput.classList.remove(
-                    "input-error"
-                );
+                confirmPasswordInput.classList.remove("input-error");
                 phoneInput.classList.remove("input-error");
                 ageInput.classList.remove("input-error");
                 signupMessage.textContent = "";
@@ -695,141 +579,96 @@
 
                 // NAME VALIDATION
                 if (name === "") {
-                    nameError.textContent =
-                        "Name is required.";
-                    nameInput.classList.add(
-                        "input-error"
-                    );
+                    nameError.textContent = "Name is required.";
+                    nameInput.classList.add("input-error");
                     hasError = true;
                 }
                 else if (name.length < 2) {
-                    nameError.textContent =
-                        "Name must contain at least 2 characters.";
-                    nameInput.classList.add(
-                        "input-error"
-                    );
+                    nameError.textContent ="Name must contain at least 2 characters.";
+                    nameInput.classList.add("input-error");
                     hasError = true;
                 }
 
                 // EMAIL VALIDATION
                 if (email === "") {
-                    emailError.textContent =
-                        "Email is required.";
-                    emailInput.classList.add(
-                        "input-error"
-                    );
+                    emailError.textContent ="Email is required.";
+                    emailInput.classList.add("input-error");
                     hasError = true;
                 }
                 else {
-                    const emailPattern =
-                        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     if (!emailPattern.test(email)) {
-                        emailError.textContent =
-                            "Please enter a valid email address.";
-                        emailInput.classList.add(
-                            "input-error"
-                        );
+                        emailError.textContent = "Please enter a valid email address.";
+                        emailInput.classList.add("input-error");
                         hasError = true;
                     }
                 }
 
                 // PASSWORD VALIDATION
                 if (password === "") {
-                    passwordError.textContent =
-                        "Password is required.";
-                    passwordInput.classList.add(
-                        "input-error"
-                    );
+                    passwordError.textContent = "Password is required.";
+                    passwordInput.classList.add("input-error");
                     hasError = true;
                 }
                 else if (password.length < 6) {
-                    passwordError.textContent =
-                        "Password must be at least 6 characters long.";
-                    passwordInput.classList.add(
-                        "input-error"
-                    );
+                    passwordError.textContent ="Password must be at least 6 characters long.";
+                    passwordInput.classList.add("input-error");
                     hasError = true;
                 }
 
                 // CONFIRM PASSWORD VALIDATION
                 if (confirmPassword === "") {
-                    confirmPasswordError.textContent =
-                        "Please confirm your password.";
-                    confirmPasswordInput.classList.add(
-                        "input-error"
-                    );
+                    confirmPasswordError.textContent ="Please confirm your password.";
+                    confirmPasswordInput.classList.add("input-error");
                     hasError = true;
                 }
                 else if (password !== confirmPassword) {
-                    confirmPasswordError.textContent =
-                        "Passwords do not match.";
-                    confirmPasswordInput.classList.add(
-                        "input-error"
-                    );
+                    confirmPasswordError.textContent ="Passwords do not match.";
+                    confirmPasswordInput.classList.add("input-error");
                     hasError = true;
                 }
 
                 // PHONE VALIDATION
                 if (phone === "") {
-                    phoneError.textContent =
-                        "Phone number is required.";
-                    phoneInput.classList.add(
-                        "input-error"
-                    );
+                    phoneError.textContent ="Phone number is required.";
+                    phoneInput.classList.add("input-error");
                     hasError = true;
                 }
                 else {
-                    const phonePattern =
-                        /^[0-9]{10}$/;
+                    const phonePattern =/^[0-9]{10}$/;
                     if (!phonePattern.test(phone)) {
-                        phoneError.textContent =
-                            "Phone number must contain exactly 10 digits.";
-                        phoneInput.classList.add(
-                            "input-error"
-                        );
+                        phoneError.textContent ="Phone number must contain exactly 10 digits.";
+                        phoneInput.classList.add("input-error");
                         hasError = true;
                     }
                 }
 
                 // AGE VALIDATION
                 if (age === "") {
-                    ageError.textContent =
-                        "Age is required.";
-                    ageInput.classList.add(
-                        "input-error"
-                    );
+                    ageError.textContent ="Age is required.";
+                    ageInput.classList.add("input-error");
                     hasError = true;
                 }
                 else {
-                    const ageNumber =
-                        Number(age);
-                    if (
-                        !Number.isInteger(ageNumber) ||
-                        ageNumber < 1 ||
-                        ageNumber > 120
-                    ) {
-                        ageError.textContent =
-                            "Age must be between 1 and 120.";
-                        ageInput.classList.add(
-                            "input-error"
-                        );
+                    const ageNumber = Number(age);
+                    if (!Number.isInteger(ageNumber) || ageNumber < 1 || ageNumber > 120)
+                    {
+                        ageError.textContent = "Age must be between 1 and 120.";
+                        ageInput.classList.add("input-error");
                         hasError = true;
                     }
                 }
 
                 // STOP IF VALIDATION FAILED
                 if (hasError) {
-                    signupMessage.textContent =
-                        "Please correct the errors above.";
-                    signupMessage.className =
-                        "error";
+                    signupMessage.textContent = "Please correct the errors above.";
+                    signupMessage.className = "error";
                     return;
                 }
 
                 // DISABLE BUTTON
                 signupButton.disabled = true;
-                signupButton.innerHTML =
-                    "Creating Account...";
+                signupButton.innerHTML = "Creating Account...";
 
                 // SEND DATA TO FASTAPI
                 try {
@@ -852,56 +691,37 @@
                     );
 
                     // READ BACKEND RESPONSE
-                    const data =
-                        await response.json();
+                    const data = await response.json();
 
                     // BACKEND ERROR
                     if (!response.ok) {
-                        signupMessage.textContent =
-                            data.detail ||
-                            "Unable to create account.";
-                        signupMessage.className =
-                            "error";
-                        signupButton.disabled =
-                            false;
-                        signupButton.innerHTML =
-                            'Create Account <span>↗</span>';
+                        signupMessage.textContent = data.detail || "Unable to create account.";
+                        signupMessage.className ="error";
+                        signupButton.disabled = false;
+                        signupButton.innerHTML ='Create Account';
                         return;
                     }
 
                     // SUCCESS
-                    signupMessage.textContent =
-                        "Account created successfully! Redirecting to login...";
-                    signupMessage.className =
-                        "success";
-                    signupButton.disabled =
-                        true;
+                    signupMessage.textContent ="Account created successfully! Redirecting to login...";
+                    signupMessage.className ="success";
+                    signupButton.disabled = true;
 
                     // REDIRECT TO LOGIN
-                    setTimeout(function () {
-                        window.location.href =
-                            "login.html";
-                    }, 1500);
+                    setTimeout(function () { window.location.href = "login.html";}, 1500);
                 }
 
                 // SERVER CONNECTION ERROR
                 catch (error) {
-                    console.error(
-                        "Signup error:",
-                        error
-                    );
-                    signupMessage.textContent =
-                        "Unable to connect to the SignVerse server. Please make sure the backend is running.";
-                    signupMessage.className =
-                        "error";
-                    signupButton.disabled =
-                        false;
-                    signupButton.innerHTML =
-                        'Create Account <span>↗</span>';
+                    console.error("Signup error:",error);
+                    signupMessage.textContent ="Unable to connect to the SignVerse server. Please make sure the backend is running.";
+                    signupMessage.className ="error";
+                    signupButton.disabled =false;
+                    signupButton.innerHTML ='Create Account';
                 }
             }
         );
     </script>
-    
+
 </body>
 </html>
