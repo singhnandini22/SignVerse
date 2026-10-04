@@ -1,0 +1,30 @@
+# Python virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Datasets and extracted feature CSVs
+*.csv
+
+# Logs and temporary outputs
+*.log
+*_failed_images.txt
+
+# Jupyter / Python temporary files
+.ipynb_checkpoints/
+
+# IDE / editor files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local archive
+archive/
+
+# Large trained model files
+models/*.pklarchive/
