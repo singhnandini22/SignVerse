@@ -170,13 +170,15 @@
         /* SIGN IMAGE AREA */
         .sign-image-container {
             width: 100%;
-            height: 430px;
+            aspect-ratio: 1 / 1;
+            height: auto;
+            min-width: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             background-color: var(--blue-teal);
             border: 1px solid var(--border);
-            border-radius: 30px;
+            border-radius: 25px;
             overflow: hidden;
         }
         /* ACTUAL HAND SIGN IMAGE */
@@ -184,6 +186,7 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
+            object-position: center;
             display: none;
         }
         /* IMAGE PLACEHOLDER */
@@ -315,7 +318,7 @@
         <nav class="nav-links">
             <a href="index.html">Home</a>
             <a href="dashboard.html">Learn</a>
-            <a href="dashboard.html">Progress</a>
+            <a href="progress.html">Progress</a>
         </nav>
         <!-- LOGOUT -->
         <button class="logout-button" id="logout-button">Logout</button>
@@ -384,17 +387,26 @@
         /* SELECT CURRENT LIST */
         const items = learningType === "numbers" ? numbers : letters;
 
-        /* CURRENT ITEM */
+        
+        /* RESTORE LAST LEARNING POSITION */
+        const savedItem = localStorage.getItem(
+            "lastItem_" + learningType
+        );
+
         let currentItem = 0;
 
-        /* GET CURRENT ITEM FROM URL */
+        /* URL ITEM TAKES PRIORITY; OTHERWISE RESTORE SAVED ITEM */
         const itemFromURL = urlParams.get("item");
-        if (itemFromURL) {
-            const itemIndex = items.indexOf(itemFromURL.toUpperCase());
+        const itemToLoad = itemFromURL || savedItem;
+
+        if (itemToLoad) {
+            const itemIndex = items.indexOf(itemToLoad.toUpperCase());
+
             if (itemIndex !== -1) {
                 currentItem = itemIndex;
             }
         }
+
 
         /* GET HTML ELEMENTS */
         const lessonTitle = document.getElementById("lesson-title");
@@ -411,6 +423,7 @@
         /* SHOW CURRENT ITEM*/
         function showItem() {
             const item = items[currentItem];
+            localStorage.setItem("lastItem_" + learningType,item);
 
             /* LETTERS*/
             if (learningType === "letters") {
@@ -469,14 +482,25 @@
         }
 
         /* NEXT BUTTON */
-        nextButton.addEventListener("click",function ()
-            {
-                const item =
-                    items[currentItem];
-                /* GO TO PRACTICE PAGE */
-                window.location.href = "practice.html?type=" + learningType + "&item=" + item;
+    
+        nextButton.addEventListener("click", function () {
+            const item = items[currentItem];
+
+            if (currentItem === items.length - 1) {
+                // Save the last item and return to the dashboard
+                localStorage.setItem(
+                    "lastItem_" + learningType,
+                    item
+                );
+                window.location.href = "dashboard.html";
+            } else {
+                // Open practice for the current item
+                window.location.href =
+                    "practice.html?type=" + learningType +
+                    "&item=" + item;
             }
-        );
+        });
+
 
         /* PREVIOUS BUTTON */
         previousButton.addEventListener("click",function ()

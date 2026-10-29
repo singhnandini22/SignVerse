@@ -1,3 +1,10 @@
+fastapi
+uvicorn
+pwdlib[argon2]
+python-multipart
+pyjwt
+pydantic[email]
+
 opencv-python
 PyOpenGL
 PyQt5

@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress | SignVerse</title>
+
+    <style>
+        :root {
+            --dark-teal: #23484E;
+            --blue-teal: #386875;
+            --teal: #4AA5AA;
+            --orange: #FFA000;
+            --cream: #F5F2E8;
+            --light-text: #D5DFDD;
+            --muted-text: #A8B9B8;
+            --border: rgba(245, 242, 232, 0.18);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--dark-teal);
+            color: var(--cream);
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* HEADER — MATCHES DASHBOARD */
+        .header {
+            width: 100%;
+            min-height: 86px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            padding: 18px 5%;
+            background: var(--dark-teal);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            color: var(--cream);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: -1px;
+        }
+
+        .logo:hover {
+            color: var(--cream);
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 42px;
+        }
+
+        .header-nav a {
+            color: var(--light-text);
+            font-size: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .header-nav a:hover {
+            color: var(--orange);
+        }
+
+        .header-nav a.active {
+            color: var(--teal);
+        }
+
+        .logout-button {
+            padding: 12px 22px;
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            background: var(--orange);
+            color: var(--dark-teal);
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logout-button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* MAIN PAGE */
+        .progress-page {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 75px 5% 100px;
+        }
+
+        .page-intro {
+            margin-bottom: 55px;
+        }
+
+        .small-heading {
+            color: var(--teal);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .page-intro h1 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(42px, 6vw, 68px);
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: -2.5px;
+            margin-bottom: 22px;
+        }
+
+        .page-intro h1 span {
+            color: var(--orange);
+        }
+
+        .page-intro > p:last-child {
+            max-width: 720px;
+            color: var(--light-text);
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* PROGRESS SECTION */
+        .progress-section {
+            width: 100%;
+        }
+
+        .section-heading {
+            margin-bottom: 35px;
+        }
+
+        .section-heading h2 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(34px, 4vw, 46px);
+            letter-spacing: -1.5px;
+            margin-bottom: 12px;
+        }
+
+        .section-heading p {
+            color: var(--light-text);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .progress-cards {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        /* CARDS */
+        .progress-card {
+            min-width: 0;
+            padding: 32px;
+            background: rgba(56, 104, 117, 0.55);
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            transition:
+                transform 0.3s ease,
+                background-color 0.3s ease,
+                border-color 0.3s ease;
+        }
+
+        .progress-card:hover {
+            transform: translateY(-5px);
+            background: rgba(56, 104, 117, 0.75);
+            border-color: rgba(245, 242, 232, 0.3);
+        }
+
+        .letters-card:hover {
+            border-color: var(--teal);
+        }
+
+        .numbers-card:hover {
+            border-color: var(--orange);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 28px;
+        }
+
+        .card-label {
+            color: var(--light-text);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        .card-symbol {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 46px;
+            line-height: 1;
+        }
+
+        .letters-card .card-symbol {
+            color: var(--teal);
+        }
+
+        .numbers-card .card-symbol {
+            color: var(--orange);
+        }
+
+        .level-badge {
+            padding: 7px 12px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--light-text);
+            font-size: 9px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .progress-card h3 {
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--cream);
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .progress-description {
+            min-height: 48px;
+            color: var(--light-text);
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .progress-label {
+            display: block;
+            color: var(--muted-text);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .progress-percentage {
+            display: block;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 46px;
+            line-height: 1;
+        }
+
+        .letters-percentage {
+            color: var(--teal);
+        }
+
+        .numbers-percentage {
+            color: var(--orange);
+        }
+
+        .progress-count {
+            color: var(--light-text);
+            font-size: 13px;
+            padding-bottom: 5px;
+        }
+
+        /* PROGRESS BARS */
+        .progress-bar {
+            width: 100%;
+            height: 9px;
+            background: rgba(35, 72, 78, 0.85);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 20px;
+            transition: width 0.6s ease;
+        }
+
+        .letters-fill {
+            background: var(--teal);
+        }
+
+        .numbers-fill {
+            background: var(--orange);
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 17px;
+            color: var(--muted-text);
+            font-size: 12px;
+        }
+
+        /* BOTTOM MESSAGE */
+        .encouragement {
+            margin-top: 30px;
+            padding: 24px 28px;
+            background: rgba(56, 104, 117, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .encouragement h3 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .encouragement p {
+            color: var(--light-text);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .encouragement-mark {
+            flex-shrink: 0;
+            color: var(--orange);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 42px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .progress-page {
+                padding: 65px 6% 80px;
+            }
+
+            .progress-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .progress-description {
+                min-height: 0;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .header {
+                padding: 18px 6%;
+            }
+
+            .logo {
+                font-size: 27px;
+            }
+
+            .header-nav {
+                gap: 22px;
+            }
+
+            .header-nav a {
+                font-size: 13px;
+            }
+
+            .logout-button {
+                padding: 10px 18px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .header {
+                min-height: 70px;
+                padding: 15px 5%;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .logo {
+                font-size: 25px;
+            }
+
+            .header-nav {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                padding-top: 13px;
+                border-top: 1px solid var(--border);
+                gap: 28px;
+            }
+
+            .header-nav a {
+                font-size: 12px;
+            }
+
+            .logout-button {
+                padding: 9px 16px;
+            }
+
+            .progress-page {
+                padding: 52px 5% 65px;
+            }
+
+            .small-heading {
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+
+            .page-intro h1 {
+                font-size: 43px;
+                letter-spacing: -1.8px;
+            }
+
+            .page-intro > p:last-child {
+                font-size: 15px;
+            }
+
+            .progress-card {
+                padding: 25px;
+                border-radius: 21px;
+            }
+
+            .progress-card h3 {
+                font-size: 25px;
+            }
+
+            .progress-percentage {
+                font-size: 41px;
+            }
+
+            .encouragement {
+                padding: 22px;
+                align-items: flex-start;
+            }
+
+            .encouragement h3 {
+                font-size: 19px;
+            }
+
+            .encouragement-mark {
+                font-size: 32px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <a href="dashboard.html" class="logo">SignVerse</a>
+
+        <nav class="header-nav" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Learn</a>
+            <a href="progress.html" class="active" aria-current="page">
+                Progress
+            </a>
+        </nav>
+
+        <button class="logout-button" id="logout-button" type="button">
+            Logout
+        </button>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="progress-page">
+
+        <section class="page-intro">
+            <p class="small-heading">Your SignVerse Journey</p>
+
+            <h1>Your progress.<br><span>Your growth.</span></h1>
+
+            <p>
+                Every sign you learn brings you one step closer to confident
+                communication. See how far you've come with letters and numbers.
+            </p>
+        </section>
+
+        <section class="progress-section">
+            <div class="section-heading">
+                <p class="small-heading">Learning overview</p>
+                <h2>My Progress</h2>
+                <p>Keep learning and build your signing skills one lesson at a time.</p>
+            </div>
+
+            <div class="progress-cards">
+
+                <!-- LETTERS -->
+                <article class="progress-card letters-card">
+                    <div class="card-top">
+                        <div>
+                            <p class="card-label">01 / ALPHABET</p>
+                            <div class="card-symbol" aria-hidden="true">A–Z</div>
+                        </div>
+                        <span class="level-badge">Beginner</span>
+                    </div>
+
+                    <h3>Letters</h3>
+
+                    <p class="progress-description">
+                        Explore the Indian Sign Language alphabet and practise
+                        all 26 letters, one sign at a time.
+                    </p>
+
+                    <div class="progress-info">
+                        <div>
+                            <span class="progress-label">Completed</span>
+                            <span
+                                class="progress-percentage letters-percentage"
+                                id="letters-progress"
+                            >0%</span>
+                        </div>
+
+                        <span class="progress-count" id="letters-progress-text">
+                            0 of 26 letters
+                        </span>
+                    </div>
+
+                    <div
+                        class="progress-bar"
+                        role="progressbar"
+                        aria-label="Letters learning progress"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        aria-valuenow="0"
+                        id="letters-progress-bar"
+                    >
+                        <div
+                            class="progress-fill letters-fill"
+                            id="letters-progress-fill"
+                        ></div>
+                    </div>
+
+                    <div class="card-footer">
+                        <span>Alphabet practice</span>
+                        <span>26 letters</span>
+                    </div>
+                </article>
+
+                <!-- NUMBERS -->
+                <article class="progress-card numbers-card">
+                    <div class="card-top">
+                        <div>
+                            <p class="card-label">02 / NUMBERS</p>
+                            <div class="card-symbol" aria-hidden="true">123</div>
+                        </div>
+                        <span class="level-badge">Beginner</span>
+                    </div>
+
+                    <h3>Numbers</h3>
+
+                    <p class="progress-description">
+                        Practise number signs from 1 to 10 and strengthen
+                        your ability to recognise each sign.
+                    </p>
+
+                    <div class="progress-info">
+                        <div>
+                            <span class="progress-label">Completed</span>
+                            <span
+                                class="progress-percentage numbers-percentage"
+                                id="numbers-progress"
+                            >0%</span>
+                        </div>
+
+                        <span class="progress-count" id="numbers-progress-text">
+                            0 of 10 numbers
+                        </span>
+                    </div>
+
+                    <div
+                        class="progress-bar"
+                        role="progressbar"
+                        aria-label="Numbers learning progress"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        aria-valuenow="0"
+                        id="numbers-progress-bar"
+                    >
+                        <div
+                            class="progress-fill numbers-fill"
+                            id="numbers-progress-fill"
+                        ></div>
+                    </div>
+
+                    <div class="card-footer">
+                        <span>Number practice</span>
+                        <span>10 numbers</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <aside class="encouragement">
+            <div>
+                <h3>Every sign is progress.</h3>
+                <p>
+                    Stay consistent, keep practising, and celebrate
+                    every new sign you learn.
+                </p>
+            </div>
+
+            <span class="encouragement-mark" aria-hidden="true">✦</span>
+        </aside>
+
+    </main>
+
+    <script>
+        // Read saved user data without redirecting if it is missing.
+        let user = {};
+
+        try {
+            const savedUser = localStorage.getItem("user");
+            const parsedUser = savedUser ? JSON.parse(savedUser) : {};
+
+            if (
+                parsedUser &&
+                typeof parsedUser === "object" &&
+                !Array.isArray(parsedUser)
+            ) {
+                user = parsedUser;
+            }
+        } catch (error) {
+            console.error("Could not read saved user:", error);
+        }
+
+        // Display progress values.
+        function displayProgress(value, type) {
+            const percentage = Math.max(
+                0,
+                Math.min(100, Number(value) || 0)
+            );
+
+            const total = type === "letters" ? 26 : 10;
+            const completed = Math.round((percentage / 100) * total);
+
+            const progressElement =
+                document.getElementById(type + "-progress");
+
+            const textElement =
+                document.getElementById(type + "-progress-text");
+
+            const fillElement =
+                document.getElementById(type + "-progress-fill");
+
+            const barElement =
+                document.getElementById(type + "-progress-bar");
+
+            const itemName = type === "letters" ? "letters" : "numbers";
+
+            if (progressElement) {
+                progressElement.textContent = Math.round(percentage) + "%";
+            }
+
+            if (textElement) {
+                textElement.textContent =
+                    completed + " of " + total + " " + itemName;
+            }
+
+            if (fillElement) {
+                fillElement.style.width = percentage + "%";
+            }
+
+            if (barElement) {
+                barElement.setAttribute("aria-valuenow", percentage);
+            }
+        }
+
+        displayProgress(user.letters_progress, "letters");
+        displayProgress(user.numbers_progress, "numbers");
+
+        // Logout
+        document
+            .getElementById("logout-button")
+            .addEventListener("click", function () {
+                localStorage.removeItem("access_token");
+                localStorage.removeItem("user");
+                window.location.href = "login.html";
+            });
+    </script>
+
+</body>
+</html>
+```
