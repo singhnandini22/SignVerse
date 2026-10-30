@@ -1,12 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Practice | SignVerse</title>
+
     <style>
         /* COLOR PALETTE */
         :root {
@@ -17,31 +16,32 @@
             --cream: #F5F2E8;
             --light-text: #D5DFDD;
             --muted-text: #A8B9B8;
-            --border:
-                rgba(245, 242, 232, 0.18);
+            --border: rgba(245, 242, 232, 0.18);
         }
-        /* GLOBAL*/
+
+        /* GLOBAL */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         html {
             scroll-behavior: smooth;
         }
+
         body {
             background-color: var(--dark-teal);
             color: var(--cream);
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
         }
+
         a {
             text-decoration: none;
         }
+
         /* NAVIGATION */
         .navbar {
             width: 100%;
@@ -51,38 +51,37 @@
             justify-content: space-between;
             padding: 0 5%;
             background-color: var(--dark-teal);
-            border-bottom:
-                1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
-        /* LOGO */
+
         .logo {
             color: var(--cream);
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
+            font-family: Georgia, "Times New Roman", serif;
             font-size: 32px;
             font-weight: bold;
             letter-spacing: -1px;
         }
-        /* NAV LINKS */
+
         .nav-links {
             display: flex;
             align-items: center;
             gap: 42px;
         }
+
         .nav-links a {
             color: var(--light-text);
             font-size: 15px;
-            transition:
-                color 0.3s ease;
+            transition: color 0.3s ease;
         }
+
         .nav-links a:hover {
             color: var(--orange);
         }
+
         .nav-links a.active {
             color: var(--teal);
         }
+
         /* LOGOUT */
         .logout-button {
             background-color: var(--orange);
@@ -93,22 +92,23 @@
             font-size: 14px;
             font-weight: bold;
             cursor: pointer;
-            transition:
-                transform 0.3s ease,
-                background-color 0.3s ease;
+            transition: transform 0.3s ease,
+                        background-color 0.3s ease;
         }
+
         .logout-button:hover {
             background-color: #FFB52E;
             transform: translateY(-2px);
         }
+
         /* MAIN PRACTICE AREA */
         .practice-page {
             width: 100%;
             max-width: 1100px;
             margin: 0 auto;
-            padding:
-                65px 5% 90px;
+            padding: 65px 5% 90px;
         }
+
         /* TOP SECTION */
         .practice-top {
             display: flex;
@@ -116,28 +116,33 @@
             justify-content: space-between;
             margin-bottom: 35px;
         }
+
         .back-link {
             color: var(--light-text);
             font-size: 14px;
-            transition:
-                color 0.3s ease;
+            transition: color 0.3s ease;
         }
+
         .back-link:hover {
             color: var(--orange);
         }
+
         .progress-info {
             color: var(--muted-text);
             font-size: 14px;
         }
+
         .progress-info span {
             color: var(--cream);
             font-weight: bold;
         }
+
         /* HEADING */
         .practice-heading {
             text-align: center;
             margin-bottom: 45px;
         }
+
         .small-heading {
             color: var(--teal);
             font-size: 13px;
@@ -145,37 +150,42 @@
             text-transform: uppercase;
             margin-bottom: 20px;
         }
+
         .practice-heading h1 {
-            font-family: Georgia, "Times New Roman",serif;
-            font-size:clamp(42px, 6vw, 65px);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(42px, 6vw, 65px);
             line-height: 1;
             letter-spacing: -2px;
             margin-bottom: 18px;
         }
+
         .practice-heading h1 span {
             color: var(--orange);
         }
+
         .practice-heading p {
             color: var(--light-text);
             font-size: 16px;
             line-height: 1.6;
         }
+
         /* WEBCAM CARD */
         .practice-card {
             width: 100%;
             max-width: 850px;
             margin: 0 auto;
             background-color: var(--blue-teal);
-            border:1px solid var(--border);
+            border: 1px solid var(--border);
             border-radius: 30px;
             padding: 30px;
         }
+
         /* WEBCAM AREA */
         .webcam-area {
             width: 100%;
             height: 430px;
-            background-color:rgba(35, 72, 78, 0.55);
-            border:1px dashed rgba(245, 242, 232, 0.35);
+            background-color: rgba(35, 72, 78, 0.55);
+            border: 1px dashed rgba(245, 242, 232, 0.35);
             border-radius: 22px;
             display: flex;
             flex-direction: column;
@@ -183,13 +193,13 @@
             justify-content: center;
             text-align: center;
             overflow: hidden;
+            position: relative;
         }
+
         .webcam-icon {
             width: 65px;
             height: 65px;
-            border:
-                1px solid
-                rgba(245, 242, 232, 0.3);
+            border: 1px solid rgba(245, 242, 232, 0.3);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -197,24 +207,20 @@
             font-size: 27px;
             margin-bottom: 20px;
         }
+
         .webcam-area h2 {
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
+            font-family: Georgia, "Times New Roman", serif;
             font-size: 27px;
             margin-bottom: 10px;
         }
+
         .webcam-area p {
             color: var(--muted-text);
             font-size: 14px;
             line-height: 1.6;
             max-width: 400px;
         }
-        /* LIVE WEBCAM */
-        .webcam-area {
-            position: relative;
-        }
+
         /* CAMERA VIDEO */
         #webcam {
             width: 100%;
@@ -222,7 +228,9 @@
             object-fit: cover;
             display: none;
             border-radius: 22px;
+            transform: scaleX(-1);
         }
+
         /* CAMERA PLACEHOLDER */
         .camera-placeholder {
             display: flex;
@@ -233,6 +241,7 @@
             width: 100%;
             height: 100%;
         }
+
         /* INSTRUCTION */
         .instruction {
             text-align: center;
@@ -240,15 +249,18 @@
             color: var(--light-text);
             font-size: 14px;
         }
+
         .instruction strong {
             color: var(--cream);
         }
-        /* CHECK BUTTON */
+
+        /* AUTOMATIC RECOGNITION STATUS */
         .practice-actions {
             display: flex;
             justify-content: center;
             margin-top: 28px;
         }
+
         .check-button {
             border: none;
             background-color: var(--orange);
@@ -257,15 +269,10 @@
             border-radius: 30px;
             font-size: 15px;
             font-weight: bold;
-            cursor: pointer;
-            transition:
-                transform 0.3s ease,
-                background-color 0.3s ease;
+            cursor: default;
+            opacity: 1;
         }
-        .check-button:hover {
-            background-color: #FFB52E;
-            transform: translateY(-3px);
-        }
+
         /* RESULT MESSAGE */
         .result-message {
             display: none;
@@ -276,22 +283,32 @@
             font-size: 15px;
             font-weight: bold;
         }
+
         .result-message.correct {
             display: block;
             background-color: rgba(74, 165, 170, 0.18);
             border: 1px solid var(--teal);
             color: var(--cream);
         }
+
         .result-message.wrong {
             display: block;
             background-color: rgba(255, 160, 0, 0.12);
-            border:1px solid var(--orange);
+            border: 1px solid var(--orange);
             color: var(--cream);
         }
+
+        .result-message.info {
+            display: block;
+            background-color: rgba(245, 242, 232, 0.10);
+            border: 1px solid var(--border);
+            color: var(--cream);
+        }
+
         /* NEXT BUTTON */
         .next-button {
             display: none;
-            margin:25px auto 0;
+            margin: 25px auto 0;
             width: fit-content;
             background-color: var(--teal);
             color: var(--dark-teal);
@@ -299,306 +316,682 @@
             border-radius: 25px;
             font-size: 14px;
             font-weight: bold;
-            transition:transform 0.3s ease;
+            transition: transform 0.3s ease;
         }
+
         .next-button:hover {
             transform: translateY(-2px);
         }
-        /* PRACTICE AGAIN  */
-        .practice-again {
-            display: none;
-            justify-content: center;
-            margin-top: 15px;
-        }
-        .practice-again-button {
-            background-color: transparent;
-            color: var(--cream);
-            border: 1px solid var(--border);
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-size: 14px;
-            cursor: pointer;
-            transition:
-                border-color 0.3s ease,
-                color 0.3s ease,
-                transform 0.3s ease;
-        }
-        .practice-again-button:hover {
-            border-color: var(--teal);
-            color: var(--teal);
-            transform: translateY(-2px);
-        }
+
         /* MOBILE */
         @media (max-width: 800px) {
             .navbar {
                 height: 75px;
                 padding: 0 6%;
             }
+
             .logo {
                 font-size: 27px;
             }
+
             .nav-links {
                 display: none;
             }
+
             .practice-page {
-                padding:50px 6% 70px;
+                padding: 50px 6% 70px;
             }
+
             .practice-card {
                 padding: 20px;
             }
+
             .webcam-area {
                 height: 350px;
             }
         }
+
         @media (max-width: 500px) {
             .navbar {
                 padding: 0 5%;
             }
+
             .logo {
                 font-size: 25px;
             }
+
             .logout-button {
-                padding:10px 16px;
+                padding: 10px 16px;
                 font-size: 13px;
             }
+
             .practice-top {
                 margin-bottom: 25px;
             }
+
             .practice-heading {
                 margin-bottom: 30px;
             }
+
             .practice-heading h1 {
                 font-size: 44px;
             }
+
             .webcam-area {
                 height: 300px;
             }
+
             .webcam-area h2 {
                 font-size: 23px;
             }
         }
     </style>
 </head>
+
 <body>
+
     <!-- NAVIGATION -->
     <header class="navbar">
-        <a href="index.html" class="logo" > SignVerse </a>
+
+        <a href="index.html" class="logo">SignVerse</a>
+
         <nav class="nav-links">
-            <a href="index.html"> Home </a>
-            <a href="dashboard.html" class="active" > Learn </a>
-            <a href="dashboard.html"> Progress </a>
+            <a href="index.html">Home</a>
+            <a href="dashboard.html" class="active">Learn</a>
+            <a href="dashboard.html">Progress</a>
         </nav>
-        <button class="logout-button" id="logout-button" > Logout </button>
+
+        <button class="logout-button" id="logout-button">
+            Logout
+        </button>
+
     </header>
+
     <!-- MAIN -->
     <main class="practice-page">
+
         <!-- TOP -->
         <div class="practice-top">
-            <a href="#" class="back-link" id="back-to-learning" >Back to Learning</a>
-            <p class="progress-info">Letter
+
+            <a href="#" class="back-link" id="back-to-learning">
+                Back to Learning
+            </a>
+
+            <p class="progress-info">
+                <span id="item-type-label">Letter</span>
                 <span id="current-letter">A</span>
                 &nbsp;·&nbsp;
-                <span id="current-number">1 </span>/ 26
+                <span id="current-number">1 / 26</span>
             </p>
+
         </div>
+
         <!-- HEADING -->
         <section class="practice-heading">
+
             <p class="small-heading">Practice</p>
-            <h1>Show the sign for<span id="letter-heading">A</span></h1>
+
+            <h1>
+                Show the sign for<span id="letter-heading">A</span>
+            </h1>
+
             <p>
                 Use your webcam and show the correct
                 Indian Sign Language hand sign.
             </p>
+
         </section>
+
         <!-- PRACTICE CARD -->
         <section class="practice-card">
+
             <!-- WEBCAM -->
             <div class="webcam-area">
 
-                <!-- LIVE CAMERA WILL BE CONNECTED HERE -->
                 <video id="webcam" autoplay playsinline></video>
 
                 <!-- CAMERA PLACEHOLDER -->
-                <div class="camera-placeholder" id="camera-placeholder" >
+                <div class="camera-placeholder" id="camera-placeholder">
+
                     <div class="webcam-icon">◉</div>
-                    <h2>Camera will appear here</h2>
+
+                    <h2>Starting your camera...</h2>
+
                     <p>
-                        Your webcam will be used here
-                        to check whether your hand sign
-                        matches the required letter.
+                        Your webcam will automatically recognize
+                        your hand sign.
                     </p>
+
                 </div>
 
             </div>
 
             <!-- INSTRUCTION -->
-            <p class="instruction"> Show the hand sign for <strong id="instruction-letter"> A </strong> clearly in front of the camera.</p>
+            <p class="instruction">
+                Show the hand sign for
+                <strong id="instruction-letter">A</strong>
+                clearly in front of the camera.
+            </p>
 
-            <!-- CHECK BUTTON -->
+            <!-- AUTOMATIC RECOGNITION STATUS -->
             <div class="practice-actions">
-                <button class="check-button" id="check-sign-button">Check My Sign</button>
+
+                <button class="check-button" id="check-sign-button" disabled>
+                    Starting Recognition...
+                </button>
+
             </div>
 
             <!-- RESULT -->
             <div class="result-message" id="result-message"></div>
 
-            <!-- PRACTICE AGAIN -->
-            <div class="practice-again" id="practice-again">
-            <button class="practice-again-button" id="practice-again-button">Practice Again</button>
-            </div>
+            <!-- NEXT ITEM -->
+            <a href="#" class="next-button" id="next-letter-button">
+                Continue to Next Character
+            </a>
 
-            <!-- NEXT LETTER -->
-            <a href="#" class="next-button" id="next-letter-button" > Continue to Next Character </a>
         </section>
+
     </main>
 
 
     <script>
 
-        const checkSignButton = document.getElementById("check-sign-button");
-        if (checkSignButton) {
+        // GET PAGE ELEMENTS
 
-            // GET TYPE AND ITEM FROM URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const practiceType = urlParams.get("type") === "numbers"? "numbers" : "letters";
-            let currentItem = urlParams.get("item");
+        const checkSignButton =
+            document.getElementById("check-sign-button");
 
-            // LETTER AND NUMBER LISTS
-            const letters = [
-                "A", "B", "C", "D", "E", "F", "G","H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U","V", "W", "X", "Y", "Z"
-            ];
-            const numbers = [
-                "1", "2", "3", "4", "5","6", "7", "8", "9", "10"
-            ];
+        const video =
+            document.getElementById("webcam");
 
-            // SELECT CURRENT LIST
-            const items = practiceType === "numbers" ? numbers: letters;
+        const placeholder =
+            document.getElementById("camera-placeholder");
 
-            // DEFAULT TO FIRST ITEM
-            if (!currentItem) {
-                currentItem = items[0];
-            }
-            currentItem = currentItem.toUpperCase();
+        const resultMessage =
+            document.getElementById("result-message");
 
-            // CHECK THAT ITEM IS VALID
-            if (!items.includes(currentItem)) {
-                currentItem = items[0];
-            }
+        const nextLetterButton =
+            document.getElementById("next-letter-button");
 
-            // CURRENT POSITION
-            const currentIndex = items.indexOf(currentItem);
-            const currentNumber = currentIndex + 1;
 
-            // BACK TO CURRENT LEARNING ITEM
-            const backToLearning = document.getElementById("back-to-learning");
-            if (backToLearning) {
-                backToLearning.href = "learning.html?type="+ practiceType+ "&item="+ currentItem;
-            }
+        // GET TYPE AND ITEM FROM URL
 
-            // GET PAGE ELEMENTS
-            const letterDisplay = document.getElementById("current-letter");
-            const numberDisplay = document.getElementById("current-number");
-            const headingLetter = document.getElementById("letter-heading");
-            const instructionLetter = document.getElementById("instruction-letter");
-            const resultMessage = document.getElementById("result-message");
-            const practiceAgain = document.getElementById("practice-again");
-            const practiceAgainButton = document.getElementById("practice-again-button");
-            const nextLetterButton = document.getElementById( "next-letter-button");
+        const urlParams =
+            new URLSearchParams(window.location.search);
 
-            // DISPLAY CURRENT ITEM
-            if (letterDisplay) {
-                letterDisplay.textContent =currentItem;
-            }
+        const practiceType =
+            urlParams.get("type") === "numbers"
+                ? "numbers"
+                : "letters";
 
-            if (numberDisplay) {
-                numberDisplay.textContent = currentNumber + " / "+ items.length;
-            }
+        let currentItem = urlParams.get("item");
 
-            if (headingLetter) {
-                headingLetter.textContent = currentItem;
-            }
 
-            if (instructionLetter) {
-                instructionLetter.textContent = currentItem;
-            }
+        // LETTER AND NUMBER LISTS
 
-            // CHECK SIGN
+        const letters = [
+            "A", "B", "C", "D", "E", "F", "G",
+            "H", "I", "J", "K", "L", "M", "N",
+            "O", "P", "Q", "R", "S", "T", "U",
+            "V", "W", "X", "Y", "Z"
+        ];
 
-            checkSignButton.addEventListener("click", async function () {const accuracy = 92;
-            resultMessage.textContent = "Great job! Your accuracy is " + accuracy + "%.";
-            resultMessage.className = "result-message correct";
-            practiceAgain.style.display = "flex";
-            nextLetterButton.style.display = "block";
-            checkSignButton.disabled = true;
-            checkSignButton.style.opacity = "0.5";
+        const numbers = [
+            "1", "2", "3", "4", "5",
+            "6", "7", "8", "9", "10"
+        ];
 
-            //SAVE PROGRESS TO BACKEND
-            const savedUser = localStorage.getItem("user");
-            if (!savedUser) {
-                console.log("User not found in localStorage.");return;
-            }
-            const user = JSON.parse(savedUser);
+
+        // SELECT CURRENT LIST
+
+        const items =
+            practiceType === "numbers" ? numbers : letters;
+
+
+        // DEFAULT TO FIRST ITEM
+
+        if (!currentItem) {
+            currentItem = items[0];
+        }
+
+        currentItem = currentItem.toUpperCase();
+
+        if (!items.includes(currentItem)) {
+            currentItem = items[0];
+        }
+
+
+        // CURRENT POSITION
+
+        const currentIndex = items.indexOf(currentItem);
+
+
+        // GET DISPLAY ELEMENTS
+
+        const backToLearning =
+            document.getElementById("back-to-learning");
+
+        const letterDisplay =
+            document.getElementById("current-letter");
+
+        const numberDisplay =
+            document.getElementById("current-number");
+
+        const headingLetter =
+            document.getElementById("letter-heading");
+
+        const instructionLetter =
+            document.getElementById("instruction-letter");
+
+        const itemTypeLabel =
+            document.getElementById("item-type-label");
+
+
+        // DISPLAY CURRENT ITEM
+
+        backToLearning.href =
+            "learning.html?type=" + practiceType +
+            "&item=" + currentItem;
+
+        letterDisplay.textContent = currentItem;
+
+        numberDisplay.textContent =
+            (currentIndex + 1) + " / " + items.length;
+
+        headingLetter.textContent = currentItem;
+
+        instructionLetter.textContent = currentItem;
+
+        itemTypeLabel.textContent =
+            practiceType === "numbers" ? "Number" : "Letter";
+
+
+        // CAMERA VARIABLES
+
+        let cameraStream = null;
+
+        let recognitionActive = false;
+
+        let recognitionCompleted = false;
+
+        let recognitionTimer = null;
+
+
+        // START WEBCAM
+
+        async function startCamera() {
+
             try {
-                const response = await fetch("http://127.0.0.1:8000/progress", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        user_id: user.id,
-                        learning_type: practiceType,
-                        item: currentItem
-                    })
 
-                });
+                cameraStream =
+                    await navigator.mediaDevices.getUserMedia({
+                        video: true,
+                        audio: false
+                    });
+
+                video.srcObject = cameraStream;
+
+                await video.play();
+
+                video.style.display = "block";
+
+                placeholder.style.display = "none";
+
+                checkSignButton.textContent =
+                    "Recognizing Automatically...";
+
+                checkSignButton.disabled = true;
+
+                // START AUTOMATIC RECOGNITION
+
+                startAutomaticRecognition();
+
+            } catch (error) {
+
+                console.error("Camera error:", error);
+
+                placeholder.querySelector("h2").textContent =
+                    "Camera access required";
+
+                placeholder.querySelector("p").textContent =
+                    "Please allow camera permission in your browser and reload this page.";
+
+                checkSignButton.textContent =
+                    "Camera unavailable";
+
+            }
+        }
+
+
+        // AUTOMATIC RECOGNITION
+
+        async function startAutomaticRecognition() {
+
+            if (recognitionActive || recognitionCompleted) {
+                return;
+            }
+
+            recognitionActive = true;
+
+            resultMessage.textContent =
+                "Show the sign for " + currentItem +
+                " clearly. Recognition is automatic!";
+
+            resultMessage.className = "result-message info";
+
+
+            while (recognitionActive && !recognitionCompleted) {
+
+                try {
+
+                    // CAPTURE WEBCAM FRAME
+
+                    const canvas = document.createElement("canvas");
+
+                    canvas.width = video.videoWidth;
+
+                    canvas.height = video.videoHeight;
+
+                    const context = canvas.getContext("2d");
+
+                    // IMPORTANT:
+                    // Do not flip this image.
+                    // The trained ML model expects the original orientation.
+
+                    context.drawImage(video, 0, 0);
+
+                    const imageBlob = await new Promise(resolve => {
+                        canvas.toBlob(resolve, "image/jpeg");
+                    });
+
+                    if (!imageBlob) {
+                        throw new Error("Could not capture webcam image.");
+                    }
+
+
+                    // SEND IMAGE TO FASTAPI
+
+                    const formData = new FormData();
+
+                    formData.append(
+                        "file",
+                        imageBlob,
+                        "webcam.jpg"
+                    );
+
+                    const response = await fetch(
+                        "http://127.0.0.1:8000/recognize",
+                        {
+                            method: "POST",
+                            body: formData
+                        }
+                    );
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(
+                            data.detail || "Recognition failed."
+                        );
+                    }
+
+
+                    // CHECK RECOGNITION RESULT
+
+                    if (!data.success) {
+
+                        resultMessage.textContent =
+                            data.message ||
+                            "No hand detected. Please show your hand clearly.";
+
+                        resultMessage.className =
+                            "result-message info";
+
+                    } else if (!data.stable) {
+
+                        resultMessage.textContent =
+                            "Hand detected! Hold the sign for " +
+                            currentItem + " steady...";
+
+                        resultMessage.className =
+                            "result-message info";
+
+                    } else {
+
+                        const predictedSign =
+                            String(data.prediction).toUpperCase();
+
+                        const confidence =
+                            (data.confidence * 100).toFixed(2);
+
+
+                        // CORRECT SIGN
+
+                        if (predictedSign === currentItem) {
+
+                            recognitionCompleted = true;
+
+                            recognitionActive = false;
+
+                            resultMessage.textContent =
+                                "Correct! You performed " +
+                                currentItem +
+                                " successfully. Confidence: " +
+                                confidence + "%.";
+
+                            resultMessage.className =
+                                "result-message correct";
+
+                            checkSignButton.textContent =
+                                "Sign Recognized!";
+
+                            nextLetterButton.style.display =
+                                "block";
+
+
+                            // SAVE PROGRESS
+
+                            await saveProgress();
+
+
+                        } else {
+
+                            // WRONG SIGN
+
+                            resultMessage.textContent =
+                                "The model detected " +
+                                predictedSign +
+                                " (" + confidence +
+                                "% confidence). Keep trying to show " +
+                                currentItem + ".";
+
+                            resultMessage.className =
+                                "result-message wrong";
+
+                        }
+
+                    }
+
+                } catch (error) {
+
+                    console.error("Recognition error:", error);
+
+                    resultMessage.textContent =
+                        "Recognition error: " + error.message +
+                        ". Retrying...";
+
+                    resultMessage.className =
+                        "result-message wrong";
+
+                    // Wait longer before retrying after an error
+
+                    await new Promise(resolve =>
+                        setTimeout(resolve, 1500)
+                    );
+
+                }
+
+
+                // WAIT BEFORE NEXT FRAME
+
+                if (recognitionActive && !recognitionCompleted) {
+
+                    await new Promise(resolve =>
+                        setTimeout(resolve, 700)
+                    );
+
+                }
+
+            }
+
+            recognitionActive = false;
+
+        }
+
+
+        // SAVE USER PROGRESS
+
+        async function saveProgress() {
+
+            const savedUser = localStorage.getItem("user");
+
+            if (!savedUser) {
+
+                console.log(
+                    "User not found in localStorage."
+                );
+
+                return;
+            }
+
+            try {
+
+                const user = JSON.parse(savedUser);
+
+                const response = await fetch(
+                    "http://127.0.0.1:8000/progress",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            user_id: user.id,
+                            learning_type: practiceType,
+                            item: currentItem
+                        })
+                    }
+                );
+
                 const data = await response.json();
+
                 if (!response.ok) {
-                    console.log("Progress update failed:", data);
+
+                    console.error(
+                        "Progress update failed:",
+                        data
+                    );
+
                     return;
                 }
-                console.log("Progress saved:", data);
-                // Update the user stored in localStorage
+
+                // UPDATE USER IN LOCAL STORAGE
+
                 localStorage.setItem(
                     "user",
                     JSON.stringify(data.user)
                 );
 
+                console.log(
+                    "Progress saved successfully:",
+                    data
+                );
+
             } catch (error) {
-                console.log("Error saving progress:", error);
+
+                console.error(
+                    "Progress error:",
+                    error
+                );
+
             }
+
+        }
+
+
+        // CONTINUE TO NEXT ITEM
+
+        nextLetterButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                // IF LAST ITEM IS COMPLETED
+
+                if (currentIndex === items.length - 1) {
+
+                    window.location.href = "dashboard.html";
+
+                    return;
+                }
+
+                // GET NEXT ITEM
+
+                const nextItem = items[currentIndex + 1];
+
+                // OPEN NEXT PRACTICE PAGE
+
+                window.location.href =
+                "learning.html?type=" +
+                practiceType +
+                "&item=" +
+                nextItem;
+
+            }
+        );
+
+
+        // LOGOUT BUTTON
+
+        document.getElementById("logout-button")
+            .addEventListener("click", function () {
+
+                localStorage.removeItem("user");
+
+                window.location.href = "index.html";
+
             });
 
-            //PRACTICE AGAIN
-            practiceAgainButton.addEventListener("click",function () {
-                    resultMessage.style.display ="none";
-                    resultMessage.className ="result-message";
-                    resultMessage.textContent ="";
-                    practiceAgain.style.display ="none";
-                    nextLetterButton.style.display ="none";
-                    checkSignButton.disabled =false;
-                    checkSignButton.style.opacity ="1";
-                }
-            );
 
-            //CONTINUE TO NEXT ITEM
-            nextLetterButton.addEventListener("click",function (event) {
-                    event.preventDefault();
+        // STOP CAMERA WHEN LEAVING PAGE
 
-                    //IF LAST ITEM IS COMPLETED
-                    if (currentIndex ===items.length - 1)
-                    {
-                        window.location.href ="dashboard.html";
-                        return;
-                    }
+        window.addEventListener("beforeunload", function () {
 
-                    //GET NEXT ITEM
-                    const nextItem = items[currentIndex + 1];
+            recognitionActive = false;
 
-                    //GO TO NEXT LEARNING PAGE
-                    window.location.href = "learning.html?type="+ practiceType+ "&item="+ nextItem;
-                }
-            );
-        }
+            if (recognitionTimer) {
+                clearTimeout(recognitionTimer);
+            }
+
+            if (cameraStream) {
+
+                cameraStream.getTracks().forEach(track => {
+                    track.stop();
+                });
+
+            }
+
+        });
+
+        // START CAMERA WHEN PAGE LOADS
+
+        startCamera();
+
     </script>
+
 </body>
 </html>

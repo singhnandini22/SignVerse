@@ -1,12 +1,18 @@
-# Python virtual environment
+# Python virtual environments
 setup/venv/
+.venv/
+venv/
 
 # Python cache
 __pycache__/
-*.pyc
+*.py[cod]
 
 # VS Code settings
 .vscode/
 
-# Local SQLite database
-*.dbdesktop.ini 
+# Local databases
+*.db
+
+# Windows system files
+desktop.ini
+**/desktop.ini

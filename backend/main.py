@@ -1,12 +1,27 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr
 import sqlite3
 import secrets
+import os
+import sys
+
+import cv2
+import numpy as np
 
 from pwdlib import PasswordHash
 
 from backend.database import create_users_table, get_connection
+
+
+# Make the existing image-processing pipeline importable when FastAPI
+# is started from the SignVerse project root.
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+IMAGE_PROCESSING_DIR = os.path.join(PROJECT_ROOT, "image_processing")
+if IMAGE_PROCESSING_DIR not in sys.path:
+    sys.path.insert(0, IMAGE_PROCESSING_DIR)
+
+from predict import ISLRecognizer
 
 
 # =========================================
@@ -717,3 +732,56 @@ def update_progress(progress: ProgressData):
                 updated_user["numbers_progress"]
         }
     }
+
+# =========================================
+# IMAGE SIGN RECOGNITION
+# =========================================
+
+# Load the trained recognizer only when the first prediction is requested.
+# This avoids loading the large model for requests that only use login/signup.
+recognizer = None
+
+
+def get_recognizer():
+    global recognizer
+    if recognizer is None:
+        recognizer = ISLRecognizer()
+    return recognizer
+
+
+@app.post("/recognize")
+async def recognize_sign(file: UploadFile = File(...)):
+    """Receive one webcam frame and return the predicted sign."""
+    if file.content_type and not file.content_type.startswith("image/"):
+        raise HTTPException(
+            status_code=400,
+            detail="Please upload an image captured from the webcam."
+        )
+
+    image_bytes = await file.read()
+    if not image_bytes:
+        raise HTTPException(status_code=400, detail="The uploaded image is empty.")
+
+    image_array = np.frombuffer(image_bytes, dtype=np.uint8)
+    frame = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
+    if frame is None:
+        raise HTTPException(status_code=400, detail="Could not read the uploaded image.")
+
+    try:
+        result = get_recognizer().predict_frame(frame)
+        return result
+    except Exception as error:
+        print("Sign recognition error:", error)
+        raise HTTPException(
+            status_code=500,
+            detail="Sign recognition failed. Check the backend terminal for details."
+        )
+
+
+@app.on_event("shutdown")
+def close_recognizer():
+    """Release MediaPipe resources when the backend shuts down."""
+    global recognizer
+    if recognizer is not None:
+        recognizer.close()
+        recognizer = None

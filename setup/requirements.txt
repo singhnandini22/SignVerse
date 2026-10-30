@@ -5,8 +5,15 @@ python-multipart
 pyjwt
 pydantic[email]
 
+# SignVerse ML recognition pipeline
+numpy
 opencv-python
+mediapipe
+scikit-learn
+joblib
+pandas
+
+# Existing CGIP dependencies
 PyOpenGL
 PyQt5
-numpy
 matplotlib
