@@ -987,9 +987,21 @@
 
         });
 
-        // START CAMERA WHEN PAGE LOADS
+        // START CAMERA ONLY FOR LETTER PRACTICE.
+        // NUMBERS ARE A VISUAL WALKTHROUGH AND DO NOT USE THE ML MODEL.
 
-        startCamera();
+        if (practiceType === "numbers") {
+
+            window.location.replace(
+                "learning.html?type=numbers&item=" +
+                encodeURIComponent(currentItem)
+            );
+
+        } else {
+
+            startCamera();
+
+        }
 
     </script>
 

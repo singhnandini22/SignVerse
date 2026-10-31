@@ -77,8 +77,13 @@
             color: var(--orange);
         }
 
+        .nav-buttons {
+    display: flex;
+    align-items: center;
+}
+
         .logout-button {
-            display: none;
+            display: inline-block;
             background-color: var(--orange);
             color: var(--dark-teal);
             padding: 13px 24px;
@@ -88,12 +93,14 @@
             font-size: 15px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
             transition: transform 0.3s ease, background-color 0.3s ease;
         }
 
         .logout-button:hover {
             background-color: #FFB52E;
             color: var(--dark-teal);
+            transform: translateY(-2px);
         }
 
         .learning-page {
@@ -337,19 +344,21 @@
     <!-- NAVIGATION BAR -->
     <header class="navbar">
 
-        <a href="dashboard.html" class="logo">SignVerse</a>
+    <a href="dashboard.html" class="logo">SignVerse</a>
 
-        <nav class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="dashboard.html">Learn</a>
-            <a href="progress.html">Progress</a>
-        </nav>
+    <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Learn</a>
+        <a href="progress.html">Progress</a>
+    </nav>
 
+    <div class="nav-buttons">
         <button class="logout-button" id="logout-button">
             Logout
         </button>
+    </div>
 
-    </header>
+</header>
 
     <!-- MAIN LEARNING PAGE -->
     <main class="learning-page">
@@ -426,7 +435,7 @@
 
     </main>
 
-    <script>
+        <script>
 
         // LETTER AND NUMBER LISTS
 
@@ -445,21 +454,15 @@
 
         // GET TYPE AND ITEM FROM URL
 
-        const urlParams =
-            new URLSearchParams(window.location.search);
+        const urlParams = new URLSearchParams(window.location.search);
 
         const learningType =
-            urlParams.get("type") === "numbers"
-                ? "numbers"
-                : "letters";
+            urlParams.get("type") === "numbers" ? "numbers" : "letters";
 
 
         // SELECT CURRENT LIST
 
-        const items =
-            learningType === "numbers"
-                ? numbers
-                : letters;
+        const items = learningType === "numbers" ? numbers : letters;
 
 
         // GET CURRENT ITEM FROM URL FIRST
@@ -552,8 +555,7 @@
                     "images/letters/" + item + ".png";
 
                 signImage.alt =
-                    "Indian Sign Language hand sign for letter " +
-                    item;
+                    "Indian Sign Language hand sign for letter " + item;
 
             }
 
@@ -576,8 +578,7 @@
                     "images/numbers/" + item + ".png";
 
                 signImage.alt =
-                    "Indian Sign Language hand sign for number " +
-                    item;
+                    "Indian Sign Language hand sign for number " + item;
 
             }
 
@@ -637,6 +638,10 @@
 
                 nextButton.textContent = "Finish";
 
+            } else if (learningType === "numbers") {
+
+                nextButton.textContent = "Next Number";
+
             } else {
 
                 nextButton.textContent = "Practice This Sign";
@@ -646,19 +651,152 @@
         }
 
 
-        // NEXT BUTTON
-        // OPEN PRACTICE PAGE FOR THE CURRENT ITEM
+        // SAVE NUMBER PROGRESS TO DATABASE
 
-        nextButton.addEventListener("click", function () {
+        async function saveNumberProgress(item) {
+
+            try {
+
+                // GET LOGGED-IN USER
+
+                const savedUser = localStorage.getItem("user");
+
+                if (!savedUser) {
+
+                    throw new Error(
+                        "User session not found. Please log in again."
+                    );
+
+                }
+
+                const user = JSON.parse(savedUser);
+
+                if (!user.id) {
+
+                    throw new Error(
+                        "User ID not found. Please log in again."
+                    );
+
+                }
+
+
+                // SEND PROGRESS TO BACKEND
+
+                const response = await fetch(
+                    "http://127.0.0.1:8000/progress",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+
+                            user_id: user.id,
+
+                            learning_type: "numbers",
+
+                            item: item
+
+                        })
+
+                    }
+                );
+
+
+                const data = await response.json();
+
+
+                // CHECK RESPONSE
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.detail || "Unable to save number progress."
+                    );
+
+                }
+
+
+                // UPDATE USER DATA IN LOCAL STORAGE
+
+                if (data.user) {
+
+                    localStorage.setItem(
+                        "user",
+                        JSON.stringify(data.user)
+                    );
+
+                }
+
+
+                console.log(
+                    "Number progress saved:",
+                    item,
+                    data.user.numbers_progress + "%"
+                );
+
+                return true;
+
+            } catch (error) {
+
+                console.error(
+                    "Number progress error:",
+                    error
+                );
+
+                alert(
+                    "Unable to save your number progress. " +
+                    error.message +
+                    "\nPlease try again."
+                );
+
+                return false;
+
+            }
+
+        }
+
+
+        // NEXT BUTTON
+
+        nextButton.addEventListener("click", async function () {
+
+            // PREVENT MULTIPLE CLICKS WHILE SAVING
+
+            if (nextButton.disabled) {
+                return;
+            }
+
+            nextButton.disabled = true;
 
             const item = items[currentItem];
 
-            if (currentItem === items.length - 1) {
 
-                localStorage.setItem(
-                    "lastItem_" + learningType,
-                    item
-                );
+            // NUMBERS: SAVE CURRENT NUMBER BEFORE MOVING FORWARD
+
+            if (learningType === "numbers") {
+
+                const saved = await saveNumberProgress(item);
+
+                // DO NOT MOVE FORWARD IF SAVING FAILED
+
+                if (!saved) {
+
+                    nextButton.disabled = false;
+
+                    return;
+
+                }
+
+            }
+
+
+            // LAST ITEM: FINISH AND RETURN TO DASHBOARD
+
+            if (currentItem === items.length - 1) {
 
                 window.location.href = "dashboard.html";
 
@@ -666,11 +804,33 @@
 
             }
 
+
+            // NUMBERS: MOVE TO NEXT NUMBER WITHOUT PRACTICE PAGE
+
+            if (learningType === "numbers") {
+
+                currentItem++;
+
+                showItem();
+
+                history.replaceState(
+                    null,
+                    "",
+                    "learning.html?type=numbers&item=" +
+                    items[currentItem]
+                );
+
+                nextButton.disabled = false;
+
+                return;
+
+            }
+
+
+            // LETTERS: OPEN WEBCAM PRACTICE PAGE
+
             window.location.href =
-                "practice.html?type=" +
-                learningType +
-                "&item=" +
-                item;
+                "practice.html?type=letters&item=" + item;
 
         });
 
@@ -717,7 +877,7 @@
 
         showItem();
 
-    </script>
+    </script>  
 
 </body>
 </html>
