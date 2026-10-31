@@ -1,0 +1,955 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignVerse | Sign Challenge</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #173f46;
+            color: #f5f1eb;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            height: 80px;
+            padding: 0 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #35666d;
+        }
+
+        .logo {
+            color: #56b3b7;
+            font-family: Georgia, serif;
+            font-size: 30px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #e2e5e2;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover,
+        .nav-links .active {
+            color: #56b3b7;
+        }
+
+        .logout-button {
+            background: transparent;
+            color: white;
+            border: 1px solid #56b3b7;
+            border-radius: 25px;
+            padding: 10px 22px;
+            cursor: pointer;
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: auto;
+            padding: 65px 25px;
+        }
+
+        .eyebrow {
+            color: #56b3b7;
+            letter-spacing: 3px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        h1, h2 {
+            font-family: Georgia, serif;
+        }
+
+        h1 {
+            font-size: 52px;
+            margin-bottom: 15px;
+        }
+
+        .intro {
+            color: #c4d2d0;
+            line-height: 1.8;
+            max-width: 650px;
+            margin-bottom: 40px;
+        }
+
+        .mode-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .mode-card {
+            background: #315e68;
+            border: 1px solid #4b9298;
+            border-radius: 18px;
+            padding: 32px;
+        }
+
+        .mode-number {
+            color: #56b3b7;
+            font-size: 42px;
+            font-family: Georgia, serif;
+            margin-bottom: 18px;
+        }
+
+        .mode-card h2 {
+            font-size: 27px;
+            margin-bottom: 12px;
+        }
+
+        .mode-card p {
+            color: #d0dcda;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .mode-card ul {
+            padding-left: 20px;
+            color: #d0dcda;
+            line-height: 2;
+            margin-bottom: 25px;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .primary-button {
+            background: #56b3b7;
+            color: #173f46;
+            border: none;
+            border-radius: 25px;
+            padding: 13px 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .primary-button:hover {
+            background: #78c9c9;
+        }
+
+        .secondary-button {
+            background: transparent;
+            border: 1px solid #56b3b7;
+            color: white;
+            border-radius: 25px;
+            padding: 12px 25px;
+            cursor: pointer;
+        }
+
+        .rules {
+            margin-top: 35px;
+            padding: 25px 30px;
+            background: #244e56;
+            border-radius: 15px;
+            color: #d0dcda;
+            line-height: 1.9;
+        }
+
+        .rules h2 {
+            color: white;
+            margin-bottom: 10px;
+            font-size: 23px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .challenge-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            color: #c4d2d0;
+        }
+
+        .challenge-card {
+            background: #315e68;
+            border: 1px solid #4b9298;
+            border-radius: 18px;
+            padding: 35px;
+        }
+
+        .challenge-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #c4d2d0;
+            margin-bottom: 25px;
+        }
+
+        .target-letter {
+            font-family: Georgia, serif;
+            font-size: 100px;
+            color: #56b3b7;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .camera-placeholder {
+            position: relative;
+            width: 100%;
+            height: 420px;
+            overflow: hidden;
+            border: 1px dashed #70a9aa;
+            border-radius: 14px;
+            background: #244e56;
+        }
+
+        .camera-placeholder strong {
+            color: white;
+            font-size: 19px;
+        }
+
+        #webcam {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+            border-radius: 14px;
+            transform: scaleX(-1);
+        }
+
+        #camera-message {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #camera-message span {
+            color: #c4d2d0;
+            font-size: 14px;
+        }
+
+        .attempt-info {
+            margin: 22px 0;
+            color: #c4d2d0;
+            text-align: center;
+        }
+
+        .challenge-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .result-summary {
+            background: #315e68;
+            border: 1px solid #4b9298;
+            border-radius: 18px;
+            padding: 35px;
+            margin-top: 30px;
+        }
+
+        .score {
+            color: #56b3b7;
+            font-family: Georgia, serif;
+            font-size: 65px;
+            margin: 15px 0;
+        }
+
+        .result-list {
+            margin: 20px 0;
+            line-height: 2;
+            color: #d0dcda;
+        }
+
+        .result-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 700px) {
+            .mode-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            h1 {
+                font-size: 40px;
+            }
+
+            .page {
+                padding: 40px 18px;
+            }
+
+            .challenge-card {
+                padding: 20px;
+            }
+        }
+
+        .review-letter {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 15px;
+            padding: 12px;
+            background: #244e56;
+            border-radius: 12px;
+        }
+
+        .review-letter img {
+            width: 130px;
+            height: 130px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .review-letter strong {
+            margin-top: 10px;
+            font-size: 20px;
+            color: #56b3b7;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <a href="index.html" class="logo">SignVerse</a>
+
+    <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Learn</a>
+        <a href="progress.html">Progress</a>
+        <a href="sign_challenge.html" class="active">Sign Challenge</a>
+    </nav>
+
+    <button class="logout-button" id="logout-button">Logout</button>
+</header>
+
+<main class="page">
+
+    <!-- MODE SELECTION -->
+    <section id="mode-screen">
+
+        <p class="eyebrow">SIGNVERSE / TEST YOURSELF</p>
+        <h1>Sign Challenge</h1>
+
+        <p class="intro">
+            Put your Indian Sign Language alphabet knowledge to the test.
+            Recognise the signs, challenge yourself and discover which
+            letters you need to practise more.
+        </p>
+
+        <div class="mode-grid">
+
+            <article class="mode-card">
+                <div class="mode-number">01</div>
+                <h2>Random Sign Challenge</h2>
+                <p>
+                    Test your knowledge with 10 randomly selected
+                    alphabet signs.
+                </p>
+                <ul>
+                    <li>10 unique random letters</li>
+                    <li>Letters appear in random order</li>
+                    <li>Maximum 3 attempts per letter</li>
+                </ul>
+                <button class="primary-button" id="random-start">
+                    Start Random Challenge
+                </button>
+            </article>
+
+            <article class="mode-card">
+                <div class="mode-number">02</div>
+                <h2>Complete Alphabet Test</h2>
+                <p>
+                    Challenge yourself to recognise the entire
+                    Indian Sign Language alphabet.
+                </p>
+                <ul>
+                    <li>All 26 letters from A to Z</li>
+                    <li>Sequential order</li>
+                    <li>Maximum 3 attempts per letter</li>
+                </ul>
+                <button class="primary-button" id="alphabet-start">
+                    Start Alphabet Test
+                </button>
+            </article>
+
+        </div>
+
+        <div class="rules">
+            <h2>Challenge Rules</h2>
+            <p>• Each letter allows a maximum of 3 attempts.</p>
+            <p>• A reference sign image will be shown after the first failed attempt.</p>
+            <p>• Correctly recognised letters earn points.</p>
+            <p>• After 3 failed attempts, you can skip the letter.</p>
+            <p>• No hand detected or unstable predictions will not count as an attempt.</p>
+        </div>
+
+    </section>
+
+
+    <!-- CHALLENGE SCREEN -->
+    <section id="challenge-screen" class="hidden">
+
+        <div class="challenge-top">
+            <button class="secondary-button" id="exit-test">
+                Exit Test
+            </button>
+            <span id="question-counter">Question 1 / 10</span>
+        </div>
+
+        <p class="eyebrow">YOUR TARGET SIGN</p>
+        <h1>Show the sign for</h1>
+
+        <div class="challenge-card">
+
+            <div class="challenge-meta">
+                <span id="test-mode-label">Random Challenge</span>
+                <span id="attempt-label">Attempts: 0 / 3</span>
+            </div>
+
+            <div class="target-letter" id="target-letter">A</div>
+
+            <div class="camera-placeholder" id="camera-container">
+                <video id="webcam" autoplay playsinline></video>
+
+                <div id="camera-message">
+                    <strong>Starting your camera...</strong>
+                    <span>Allow camera access to begin the challenge.</span>
+                </div>
+            </div>
+
+            <p class="attempt-info" id="feedback-message">
+                Show the correct hand sign in front of your camera.
+            </p>
+
+            <div id="reference-area" class="hidden">
+                <p class="attempt-info">
+                    Here's the reference sign. Observe the hand position carefully.
+                </p>
+                <img id="reference-image"
+                     src=""
+                     alt="Reference hand sign"
+                     style="display:block;max-width:220px;max-height:220px;
+                     object-fit:contain;margin:15px auto;border-radius:12px;">
+            </div>
+
+            <div class="challenge-actions">
+                <button class="secondary-button hidden" id="skip-button">
+                    Skip Letter
+                </button>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESULTS SCREEN -->
+    <section id="results-screen" class="hidden">
+
+        <p class="eyebrow">CHALLENGE COMPLETED</p>
+        <h1>Your Results</h1>
+
+        <div class="result-summary">
+            <p>Your final score</p>
+            <div class="score" id="final-score">0 / 10</div>
+            <h2 id="final-percentage">0% Accuracy</h2>
+
+            <div class="result-list">
+                <p id="correct-result">Correct: 0</p>
+                <p id="skipped-result">Skipped: 0</p>
+                <p id="weak-result">Letters to practise: None</p>
+                <p id="attempt-result">Attempts: —</p>
+            </div>
+
+            <h2 style="margin-top:25px;">Letter-wise Performance</h2>
+
+            <div id="letter-performance" class="result-list"></div>
+            <div id="review-area" class="result-list hidden">
+                <h2>Review Your Difficult Letters</h2>
+                <div id="review-images"></div>
+            </div>
+            <div class="result-actions">
+                <button class="secondary-button" id="review-difficult-button">
+                    Review Difficult Letters
+                </button>
+                <button class="secondary-button" id="practice-weak-button">
+                    Practise Weak Letters
+                </button>
+                <button class="primary-button" id="retry-button">
+                    Take Another Test
+                </button>
+                <button class="secondary-button" id="home-button">
+                    Back to Home
+                </button>
+            </div>
+        </div>
+
+    </section>
+
+</main>
+
+<script>
+    const modeScreen = document.getElementById("mode-screen");
+    const challengeScreen = document.getElementById("challenge-screen");
+    const resultsScreen = document.getElementById("results-screen");
+
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+    let questions = [];
+    let currentIndex = 0;
+    let attempts = 0;
+    let correctLetters = [];
+    let skippedLetters = [];
+    let failedLetters = [];
+    let attemptHistory = [];
+    let letterResults = [];
+    let currentMode = "";
+
+    let cameraStream = null;
+    let recognitionRunning = false;
+    let lastRegisteredPrediction = null;
+    let waitingForNewGesture = false;
+
+    function shuffle(array) {
+        const shuffled = [...array];
+
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+
+        return shuffled;
+    }
+
+    function startTest(mode) {
+        currentMode = mode;
+
+        questions = mode === "random"
+            ? shuffle(alphabet).slice(0, 10)
+            : [...alphabet];
+
+        currentIndex = 0;
+        attempts = 0;
+        correctLetters = [];
+        skippedLetters = [];
+        failedLetters = [];
+        attemptHistory = [];
+        letterResults = [];
+
+        modeScreen.classList.add("hidden");
+        resultsScreen.classList.add("hidden");
+        challengeScreen.classList.remove("hidden");
+
+        showQuestion();
+        startChallengeCamera();
+    }
+
+    function showQuestion() {
+        if (currentIndex >= questions.length) {
+            showResults();
+            return;
+        }
+
+        attempts = 0;
+
+        const letter = questions[currentIndex];
+
+        const referenceImage = document.getElementById("reference-image");
+
+        referenceImage.src = "images/letters/" + letter + ".png";
+        referenceImage.alt = "Indian Sign Language sign for letter " + letter;
+
+        document.getElementById("target-letter").textContent = letter;
+
+        document.getElementById("question-counter").textContent =
+            `Question ${currentIndex + 1} / ${questions.length}`;
+
+        document.getElementById("test-mode-label").textContent =
+            currentMode === "random"
+                ? "Random Challenge"
+                : currentMode === "weak"
+                    ? "Weak Letter Practice"
+                    : "Complete Alphabet Test";
+
+        document.getElementById("attempt-label").textContent =
+            "Attempts: 0 / 3";
+
+        document.getElementById("feedback-message").textContent =
+            "Show the correct hand sign in front of your camera.";
+
+        document.getElementById("reference-area").classList.add("hidden");
+        document.getElementById("skip-button").classList.add("hidden");
+    }
+
+
+    async function startChallengeCamera() {
+        const video = document.getElementById("webcam");
+        const message = document.getElementById("camera-message");
+
+        try {
+            cameraStream = await navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: false
+            });
+
+            video.srcObject = cameraStream;
+            await video.play();
+
+            video.style.display = "block";
+            message.style.display = "none";
+
+            recognitionRunning = true;
+            recognizeChallengeFrame();
+
+        } catch (error) {
+            console.error("Camera error:", error);
+
+            message.innerHTML = `
+                <strong>Camera access required</strong>
+                <span>Please allow camera permission and try again.</span>
+            `;
+        }
+    }
+
+    function stopChallengeCamera() {
+        recognitionRunning = false;
+
+        if (cameraStream) {
+            cameraStream.getTracks().forEach(track => track.stop());
+            cameraStream = null;
+        }
+
+        const video = document.getElementById("webcam");
+        video.srcObject = null;
+        video.style.display = "none";
+    }
+
+    function wait(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    
+    async function recognizeChallengeFrame() {
+        const video = document.getElementById("webcam");
+        const feedback = document.getElementById("feedback-message");
+
+        while (recognitionRunning && currentIndex < questions.length) {
+            try {
+                if (!video.videoWidth || !video.videoHeight) {
+                    await wait(500);
+                    continue;
+                }
+
+                const canvas = document.createElement("canvas");
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+
+                const context = canvas.getContext("2d");
+                context.drawImage(video, 0, 0);
+
+                const imageBlob = await new Promise(resolve => {
+                    canvas.toBlob(resolve, "image/jpeg");
+                });
+
+                if (!imageBlob) {
+                    throw new Error("Could not capture camera frame.");
+                }
+
+                const formData = new FormData();
+                formData.append("file", imageBlob, "webcam.jpg");
+
+                const response = await fetch(
+                    "http://127.0.0.1:8000/recognize",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                );
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.detail || "Recognition failed.");
+                }
+
+                if (!data.success) {
+                    waitingForNewGesture = false;
+                    lastRegisteredPrediction = null;
+                    feedback.textContent =
+                        "No hand detected. Show your hand clearly.";
+                } else if (!data.stable) {
+                    feedback.textContent =
+                        "Hand detected. Hold your sign steady...";
+                } else {
+                    const prediction =
+                        String(data.prediction).toUpperCase();
+
+                    if (
+                        !waitingForNewGesture ||
+                        prediction !== lastRegisteredPrediction
+                    ) {
+                        waitingForNewGesture = true;
+                        lastRegisteredPrediction = prediction;
+                        registerAttempt(prediction);
+                    }
+                }
+
+            } catch (error) {
+                console.error("Challenge recognition error:", error);
+                feedback.textContent =
+                    "Recognition connection problem. Retrying...";
+            }
+
+            await wait(700);
+        }
+    }
+
+
+    
+    function registerAttempt(prediction) {
+        if (currentIndex >= questions.length || attempts >= 3) return;
+
+        const target = questions[currentIndex];
+
+        attempts++;
+
+        document.getElementById("attempt-label").textContent =
+            `Attempts: ${attempts} / 3`;
+
+        if (prediction === target) {
+            correctLetters.push(target);
+
+            letterResults.push({
+                letter: target,
+                status: "Correct",
+                attempts: attempts
+            });
+
+            attemptHistory.push(`${target}: Correct in ${attempts} attempt(s)`);
+
+            document.getElementById("feedback-message").textContent =
+                "Correct! Well done.";
+
+            setTimeout(() => {
+                currentIndex++;
+                showQuestion();
+            }, 1500);
+
+        } else {
+            document.getElementById("feedback-message").textContent =
+                `Not quite. The recognised letter was ${prediction}. Try again.`;
+
+            if (attempts === 1) {
+                document.getElementById("reference-area").classList.remove("hidden");
+            }
+
+            if (attempts >= 3) {
+                document.getElementById("feedback-message").textContent =
+                    "You've used all 3 attempts. You can now skip this letter.";
+
+                document.getElementById("skip-button").classList.remove("hidden");
+
+            }
+        }
+    }
+
+    function skipQuestion() {
+        const target = questions[currentIndex];
+
+        skippedLetters.push(target);
+        letterResults.push({
+            letter: target,
+            status: "Skipped",
+            attempts: attempts
+        });
+
+        attemptHistory.push(`${target}: Skipped after ${attempts} attempt(s)`);
+
+        currentIndex++;
+        showQuestion();
+    }
+
+    function showResults() {
+        stopChallengeCamera();
+
+        challengeScreen.classList.add("hidden");
+        resultsScreen.classList.remove("hidden");
+
+        const total = questions.length;
+        const score = correctLetters.length;
+        const percentage = Math.round((score / total) * 100);
+
+        const weakLetters = [...new Set([
+            ...skippedLetters,
+            ...failedLetters
+        ])];
+
+        document.getElementById("final-score").textContent =
+            `${score} / ${total}`;
+
+        document.getElementById("final-percentage").textContent =
+            `${percentage}% Accuracy`;
+
+        document.getElementById("correct-result").textContent =
+            `Correct: ${score}`;
+
+        document.getElementById("skipped-result").textContent =
+            `Skipped: ${skippedLetters.length}`;
+
+        document.getElementById("weak-result").textContent =
+            `Letters to practise: ${weakLetters.length ? weakLetters.join(", ") : "None"}`;
+
+        document.getElementById("attempt-result").textContent =
+            attemptHistory.join(" | ") || "No attempts recorded.";
+
+        const performanceContainer = document.getElementById("letter-performance");
+
+        performanceContainer.innerHTML = "";
+
+        letterResults.forEach(result => {
+            const row = document.createElement("p");
+
+            row.textContent =
+                `${result.letter} — ${result.status} (${result.attempts} attempt(s))`;
+
+            performanceContainer.appendChild(row);
+        });
+    }
+
+    document.getElementById("random-start").addEventListener("click", () => {
+        startTest("random");
+    });
+
+    document.getElementById("alphabet-start").addEventListener("click", () => {
+        startTest("alphabet");
+    });
+
+    document.getElementById("skip-button").addEventListener("click", skipQuestion);
+
+    document.getElementById("exit-test").addEventListener("click", () => {
+        if (confirm("Are you sure you want to exit this test? Your current result will not be saved.")) {
+            stopChallengeCamera();
+
+            challengeScreen.classList.add("hidden");
+            resultsScreen.classList.add("hidden");
+            modeScreen.classList.remove("hidden");
+        }
+    });
+
+    document.getElementById("retry-button").addEventListener("click", () => {
+        stopChallengeCamera();
+
+        resultsScreen.classList.add("hidden");
+        modeScreen.classList.remove("hidden");
+    });
+
+    document.getElementById("home-button").addEventListener("click", () => {
+        window.location.href = "index.html";
+    });
+
+    document.getElementById("practice-weak-button")
+    .addEventListener("click", () => {
+
+        const weakLetters = [...new Set([
+            ...skippedLetters,
+            ...failedLetters
+        ])];
+
+        if (weakLetters.length === 0) {
+            alert("Congratulations! You have no weak letters to practise.");
+            return;
+        }
+
+        questions = weakLetters;
+        currentMode = "weak";
+
+        currentIndex = 0;
+        attempts = 0;
+        correctLetters = [];
+        skippedLetters = [];
+        failedLetters = [];
+        attemptHistory = [];
+        letterResults = [];
+
+        resultsScreen.classList.add("hidden");
+        challengeScreen.classList.remove("hidden");
+
+        showQuestion();
+        startChallengeCamera();
+    });
+
+    document.getElementById("logout-button").addEventListener("click", () => {
+        localStorage.removeItem("user");
+        localStorage.removeItem("access_token");
+        window.location.href = "index.html";
+    });
+
+    document.getElementById("review-difficult-button")
+    .addEventListener("click", () => {
+
+        const weakLetters = [...new Set([
+            ...skippedLetters,
+            ...failedLetters
+        ])];
+
+        const reviewArea = document.getElementById("review-area");
+        const reviewImages = document.getElementById("review-images");
+
+        reviewImages.innerHTML = "";
+
+        if (weakLetters.length === 0) {
+            reviewImages.textContent = "Excellent! You completed every letter correctly.";
+        } else {
+            weakLetters.forEach(letter => {
+                const card = document.createElement("div");
+                card.className = "review-letter";
+
+                const image = document.createElement("img");
+                image.src = "images/letters/" + letter + ".png";
+                image.alt = "ISL sign for " + letter;
+
+                const label = document.createElement("strong");
+                label.textContent = letter;
+
+                card.appendChild(image);
+                card.appendChild(label);
+                reviewImages.appendChild(card);
+            });
+        }
+
+        reviewArea.classList.toggle("hidden");
+    });
+
+</script>
+
+</body>
+</html>

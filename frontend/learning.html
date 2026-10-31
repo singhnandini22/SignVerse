@@ -343,6 +343,7 @@
             <a href="index.html">Home</a>
             <a href="dashboard.html">Learn</a>
             <a href="progress.html">Progress</a>
+            <a href="sign_challenge.html">Sign Challenge</a>
         </nav>
 
         <button class="logout-button" id="logout-button">
@@ -570,7 +571,7 @@
                     "Learn the hand position for the ISL number " +
                     item +
                     ". Observe the finger positions carefully and " +
-                    "practice the sign.";
+                    "study the hand shape carefully.";
 
                 signImage.src =
                     "images/numbers/" + item + ".png";
@@ -634,13 +635,12 @@
             // NEXT BUTTON
 
             if (currentItem === items.length - 1) {
-
-                nextButton.textContent = "Finish";
+                nextButton.textContent =
+                    learningType === "numbers" ? "Finish Learning" : "Finish";
 
             } else {
-
-                nextButton.textContent = "Practice This Sign";
-
+                nextButton.textContent =
+                    learningType === "numbers" ? "Next Number" : "Practice This Sign";
             }
 
         }
@@ -649,29 +649,82 @@
         // NEXT BUTTON
         // OPEN PRACTICE PAGE FOR THE CURRENT ITEM
 
-        nextButton.addEventListener("click", function () {
+        // NEXT BUTTON
+        // SAVE COMPLETED ITEM AND CONTINUE
+
+        nextButton.addEventListener("click", async function () {
 
             const item = items[currentItem];
 
-            if (currentItem === items.length - 1) {
+            // Get logged-in user
+            const savedUser = localStorage.getItem("user");
 
-                localStorage.setItem(
-                    "lastItem_" + learningType,
-                    item
-                );
-
-                window.location.href = "dashboard.html";
-
+            if (!savedUser) {
+                window.location.href = "login.html";
                 return;
-
             }
 
-            window.location.href =
-                "practice.html?type=" +
-                learningType +
-                "&item=" +
-                item;
+            const user = JSON.parse(savedUser);
 
+            nextButton.disabled = true;
+
+            try {
+                // Save progress only for numbers here.
+                // Letters are saved through camera practice.
+                if (learningType === "numbers") {
+
+                    const response = await fetch(
+                        "http://127.0.0.1:8000/progress",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                user_id: user.id,
+                                learning_type: "numbers",
+                                item: item
+                            })
+                        }
+                    );
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(data.detail || "Could not save progress");
+                    }
+
+                    // Update locally stored user information
+                    if (data.user) {
+                        localStorage.setItem("user", JSON.stringify(data.user));
+                    }
+                }
+
+                // Finish lesson
+                if (currentItem === items.length - 1) {
+                    window.location.href = "dashboard.html";
+                    return;
+                }
+
+                // Letters go to camera practice
+                if (learningType === "letters") {
+                    window.location.href =
+                        "practice.html?type=letters&item=" + item;
+                }
+
+                // Numbers continue visually
+                else {
+                    const nextNumber = Number(item) + 1;
+
+                    window.location.href =
+                        "learning.html?type=numbers&item=" + nextNumber;
+                }
+
+            } catch (error) {
+                console.error("Progress saving error:", error);
+                alert("Unable to save your progress. Please try again.");
+                nextButton.disabled = false;
+            }
         });
 
 
@@ -707,11 +760,11 @@
             .addEventListener("click", function () {
 
                 localStorage.removeItem("user");
+                localStorage.removeItem("access_token");
 
                 window.location.href = "index.html";
 
             });
-
 
         // INITIAL PAGE LOAD
 
